@@ -11,7 +11,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".base.ui.BaseActivity"></activity>
-        <activity android:name=".ui.MainActivity">
+        <activity android:name=".ui.rover_selection.RoverSelectionActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
