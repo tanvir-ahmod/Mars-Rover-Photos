@@ -19,5 +19,9 @@ class RoverSelectionActivity : BaseActivity() {
         TabLayoutMediator(tab_layout, pager) { _, _ ->
         }.attach()
 
+        btn_select.setOnClickListener {
+            val bottomSheetFragment = BottomSheetDialog()
+            bottomSheetFragment.show(supportFragmentManager, bottomSheetFragment.tag)
+        }
     }
 }
