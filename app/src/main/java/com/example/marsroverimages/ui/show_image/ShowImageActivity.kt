@@ -21,6 +21,13 @@ class ShowImageActivity : BaseActivity() {
             arrayListOf(RoverPhoto(img_src = "http://mars.jpl.nasa.gov/msl-raw-images/proj/msl/redops/ods/surface/sol/01000/opgs/edr/ncam/NRB_486271176EDR_F0481570NCAM00322M_.JPG"));
 
         val roverImageAdapter = RoverImageAdapter(dummyRoverData)
+        roverImageAdapter.communicator = object : RoverImageAdapter.Communicator {
+            override fun clicked(roverPhoto: RoverPhoto) {
+                val imageDetailsDialog = ImageDetailsDialog()
+                imageDetailsDialog.show(supportFragmentManager, imageDetailsDialog.tag)
+            }
+
+        }
         rv_images.layoutManager = GridLayoutManager(this, 2)
         rv_images.adapter = roverImageAdapter
     }
