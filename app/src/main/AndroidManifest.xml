@@ -13,15 +13,15 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".ui.show_image.ShowImageActivity">
+
+        </activity>
+        <activity android:name=".base.ui.BaseActivity" />
+        <activity android:name=".ui.rover_selection.RoverSelectionActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-        <activity android:name=".base.ui.BaseActivity" />
-        <activity android:name=".ui.rover_selection.RoverSelectionActivity">
-
         </activity>
     </application>
 

@@ -1,12 +1,13 @@
 package com.example.marsroverimages.base.ui
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModel
 import com.example.marsroverimages.R
-import dagger.hilt.android.AndroidEntryPoint
 
-@AndroidEntryPoint
-abstract class BaseActivity : AppCompatActivity() {
+abstract class BaseActivity<VM : ViewModel> : AppCompatActivity() {
+    protected abstract val mViewModel: VM
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_base)

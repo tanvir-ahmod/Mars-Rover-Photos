@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
+import androidx.activity.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.marsroverimages.R
 import com.example.marsroverimages.base.ui.BaseActivity
@@ -12,7 +13,10 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_show_image.*
 
 @AndroidEntryPoint
-class ShowImageActivity : BaseActivity() {
+class ShowImageActivity : BaseActivity<ShowImageViewModel>() {
+
+     override val mViewModel: ShowImageViewModel by viewModels()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_show_image)
@@ -51,4 +55,5 @@ class ShowImageActivity : BaseActivity() {
             else -> false
         }
     }
+
 }
