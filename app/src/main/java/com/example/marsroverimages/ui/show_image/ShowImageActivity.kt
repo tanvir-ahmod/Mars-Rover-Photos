@@ -18,6 +18,7 @@ import kotlinx.android.synthetic.main.activity_show_image.*
 class ShowImageActivity : BaseActivity<ShowImageViewModel>() {
 
     override val mViewModel: ShowImageViewModel by viewModels()
+    private val roverImageAdapter = RoverImageAdapter(this::showImageDetails)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,28 +26,23 @@ class ShowImageActivity : BaseActivity<ShowImageViewModel>() {
 
         setUpObservers()
 
-        /* val dummyRoverData: List<RoverPhoto> =
-             arrayListOf(RoverPhoto(img_src = "http://mars.jpl.nasa.gov/msl-raw-images/proj/msl/redops/ods/surface/sol/01000/opgs/edr/ncam/NRB_486271176EDR_F0481570NCAM00322M_.JPG"));
- */
-
+        rv_images.layoutManager = GridLayoutManager(this, 2)
+        rv_images.adapter = roverImageAdapter
     }
 
     private fun setUpObservers() {
         mViewModel.images.observe(this, Observer { result ->
             if (result is Result.Success) {
-                val roverImageAdapter = RoverImageAdapter(result.data.photos)
-                roverImageAdapter.communicator = object : RoverImageAdapter.Communicator {
-                    override fun clicked(roverPhoto: RoverPhoto) {
-                        val imageDetailsDialog = ImageDetailsDialog()
-                        imageDetailsDialog.show(supportFragmentManager, imageDetailsDialog.tag)
-                    }
-
-                }
-                rv_images.layoutManager = GridLayoutManager(this, 2)
-                rv_images.adapter = roverImageAdapter
+                roverImageAdapter.addPhotos(result.data.photos)
             }
         })
     }
+
+    private fun showImageDetails(roverPhoto: RoverPhoto) {
+        val imageDetailsDialog = ImageDetailsDialog()
+        imageDetailsDialog.show(supportFragmentManager, imageDetailsDialog.tag)
+    }
+
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         val inflater: MenuInflater = menuInflater

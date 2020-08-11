@@ -11,22 +11,26 @@ import kotlinx.android.synthetic.main.item_rover_camera.view.iv_camera
 import kotlinx.android.synthetic.main.item_rover_image.view.*
 
 
-class RoverImageAdapter(private val roverPhotos: List<RoverPhoto>) :
+class RoverImageAdapter(private val onItemClicked: (RoverPhoto) -> Unit) :
     RecyclerView.Adapter<RoverImageAdapter.CameraHolder>() {
 
-    var communicator: Communicator? = null
+    private var roverPhotos: List<RoverPhoto> = arrayListOf()
 
-    interface Communicator {
-        fun clicked(roverPhoto: RoverPhoto)
+    fun addPhotos(roverPhotos: List<RoverPhoto>) {
+        this.roverPhotos = roverPhotos
+        notifyDataSetChanged()
     }
+
 
     class CameraHolder(private val view: View) : RecyclerView.ViewHolder(view) {
 
-        val rootLayout = view.root_layout
+        fun bindData(roverPhoto: RoverPhoto, onItemClicked: (RoverPhoto) -> Unit) {
 
-        fun bindData(rover: RoverPhoto) {
+            Glide.with(view.iv_camera.context).load(roverPhoto.img_src).into(view.iv_camera)
 
-            Glide.with(view.iv_camera.context).load(rover.img_src).into(view.iv_camera)
+            view.root_layout.setOnClickListener {
+                onItemClicked(roverPhoto)
+            }
         }
     }
 
@@ -40,9 +44,7 @@ class RoverImageAdapter(private val roverPhotos: List<RoverPhoto>) :
 
     override fun onBindViewHolder(holder: CameraHolder, position: Int) {
         val roverPhoto = roverPhotos[position]
-        holder.bindData(roverPhoto)
-        holder.rootLayout.setOnClickListener {
-            communicator?.clicked(roverPhoto)
-        }
+        holder.bindData(roverPhoto, onItemClicked)
+
     }
 }
