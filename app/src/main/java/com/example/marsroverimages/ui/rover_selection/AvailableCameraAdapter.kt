@@ -10,14 +10,24 @@ import com.example.marsroverimages.models.Camera
 import kotlinx.android.synthetic.main.item_rover_camera.view.*
 
 
-class AvailableCameraAdapter(private val cameras: ArrayList<Camera>) :
+class AvailableCameraAdapter(private val onItemClicked: (Camera) -> Unit) :
     RecyclerView.Adapter<AvailableCameraAdapter.CameraHolder>() {
 
+    private var cameras: List<Camera> = arrayListOf()
+
+    fun addCameras(cameras: List<Camera>) {
+        this.cameras = cameras
+        notifyDataSetChanged()
+    }
 
     class CameraHolder(private val view: View) : RecyclerView.ViewHolder(view) {
-        fun bindData(camera: Camera) {
+        fun bindData(camera: Camera, onItemClicked: (Camera) -> Unit) {
             view.tv_camera_name.text = camera.name
             Glide.with(view.iv_camera.context).load(camera.image).into(view.iv_camera)
+
+            view.root_layout.setOnClickListener {
+                onItemClicked(camera)
+            }
         }
     }
 
@@ -30,6 +40,6 @@ class AvailableCameraAdapter(private val cameras: ArrayList<Camera>) :
     override fun getItemCount(): Int = cameras.size
 
     override fun onBindViewHolder(holder: CameraHolder, position: Int) {
-        holder.bindData(cameras[position])
+        holder.bindData(cameras[position], onItemClicked)
     }
 }
