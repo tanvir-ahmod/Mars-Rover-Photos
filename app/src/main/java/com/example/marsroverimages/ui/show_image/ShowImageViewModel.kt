@@ -7,6 +7,7 @@ import com.example.marsroverimages.data.source.RoverRepository
 import com.example.marsroverimages.models.Camera
 import com.example.marsroverimages.models.QueryModel
 import com.example.marsroverimages.models.RoverData
+import com.example.marsroverimages.models.RoverPhoto
 import com.example.marsroverimages.utills.Constants
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -20,15 +21,20 @@ class ShowImageViewModel @ViewModelInject constructor(private val roverRepositor
     private val _fetchImages = MutableLiveData<Result<RoverData>>()
     val images: LiveData<Result<RoverData>> = _fetchImages
 
+    private val _showImageDetailsDialog = MutableLiveData<Boolean>(false)
+    val showImageDetailsDialog: LiveData<Boolean> = _showImageDetailsDialog
+
+    private val _showImageDetails = MutableLiveData<RoverPhoto>()
+    val showImageDetails: LiveData<RoverPhoto> = _showImageDetails
+
     private val _showAvailableCameras = MutableLiveData<Boolean>(false)
 
-    val availableCameras: LiveData<List<Camera>> = _showAvailableCameras.switchMap {isShow->
-        if(isShow)
+    val availableCameras: LiveData<List<Camera>> = _showAvailableCameras.switchMap { isShow ->
+        if (isShow)
             fetchAvailableCameras()
         else
             MutableLiveData<List<Camera>>(listOf())
     }
-
 
 
     fun setQueryModel(queryModel: QueryModel) {
@@ -65,23 +71,26 @@ class ShowImageViewModel @ViewModelInject constructor(private val roverRepositor
         changeAvailableCameraShowStatus()
     }
 
-    private fun fetchAvailableCameras() : LiveData<List<Camera>>{
-        val availableCameras  = MutableLiveData<List<Camera>>()
+    private fun fetchAvailableCameras(): LiveData<List<Camera>> {
+        val availableCameras = MutableLiveData<List<Camera>>()
         viewModelScope.launch {
-            queryModel.roverId?.let {roverId->
+            queryModel.roverId?.let { roverId ->
                 val availableCameraList = roverRepository.getAvailableCameras(roverId)
                 if (availableCameraList is Result.Success) {
                     availableCameras.value = availableCameraList.data!!
                 }
             }
-
         }
-
         return availableCameras
     }
 
-    fun changeAvailableCameraShowStatus()  {
-        val cameraStatus  = _showAvailableCameras.value
-        _showAvailableCameras.value =  !cameraStatus!!
+    fun changeAvailableCameraShowStatus() {
+        val cameraStatus = _showAvailableCameras.value
+        _showAvailableCameras.value = !cameraStatus!!
+    }
+
+    fun showImageDetails(rover: RoverPhoto) {
+        _showImageDetailsDialog.value = true
+        _showImageDetails.value = rover
     }
 }

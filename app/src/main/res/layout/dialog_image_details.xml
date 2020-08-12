@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
     android:padding="16dp">
 
     <com.google.android.material.card.MaterialCardView
@@ -20,7 +21,7 @@
             android:layout_width="match_parent"
             android:layout_height="350dp"
             android:scaleType="fitXY"
-            android:src="@drawable/curiosity" />
+            tools:src="@drawable/curiosity" />
     </com.google.android.material.card.MaterialCardView>
 
     <TableLayout
@@ -44,7 +45,7 @@
                 android:id="@+id/tv_camera_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Front Hazard Avoidance Camera" />
+                tools:text="Front Hazard Avoidance Camera" />
         </TableRow>
 
         <TableRow android:layout_marginTop="10dp">
@@ -60,7 +61,7 @@
                 android:id="@+id/tv_earth_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="10-10-2010" />
+                tools:text="10-10-2010" />
         </TableRow>
 
     </TableLayout>

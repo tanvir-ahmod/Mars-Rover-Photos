@@ -21,6 +21,8 @@ class ShowImageActivity : BaseActivity<ShowImageViewModel>() {
 
     override val mViewModel: ShowImageViewModel by viewModels()
     private val roverImageAdapter = RoverImageAdapter(this::showImageDetails)
+    private val imageDetailsDialog = ImageDetailsDialog()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,11 +47,15 @@ class ShowImageActivity : BaseActivity<ShowImageViewModel>() {
                 roverImageAdapter.addPhotos(result.data.photos)
             }
         })
+
+        mViewModel.showImageDetailsDialog.observe(this, Observer { isShowDialog ->
+            if (isShowDialog)
+                imageDetailsDialog.show(supportFragmentManager, imageDetailsDialog.tag)
+        })
     }
 
     private fun showImageDetails(roverPhoto: RoverPhoto) {
-        val imageDetailsDialog = ImageDetailsDialog()
-        imageDetailsDialog.show(supportFragmentManager, imageDetailsDialog.tag)
+        mViewModel.showImageDetails(roverPhoto)
     }
 
 
