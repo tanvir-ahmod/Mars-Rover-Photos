@@ -31,11 +31,11 @@ class LocalRoverDataSource @Inject constructor() : RoverDataSource {
     }
 
     override suspend fun getRovers(): Result<List<Rover>> = Success(rovers)
-    override suspend fun getAvailableCameras(rover: Rover): Result<List<Camera>> {
+    override suspend fun getAvailableCameras(roverId: Int): Result<List<Camera>> {
 
         val availableCameras: ArrayList<Camera> = arrayListOf()
 
-        when (rover.id) {
+        when (roverId) {
             1 -> {
                 availableCameras.add(Camera("FHAZ", R.drawable.curiosity_fhaz))
                 availableCameras.add(Camera("RHAZ", R.drawable.curiosity_rhaz))

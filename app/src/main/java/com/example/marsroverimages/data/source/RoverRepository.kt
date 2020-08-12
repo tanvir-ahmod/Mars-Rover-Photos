@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface RoverRepository {
     suspend fun getRovers(): Result<List<Rover>>
-    suspend fun getAvailableCameras(rover: Rover): Result<List<Camera>>
+    suspend fun getAvailableCameras(roverId: Int): Result<List<Camera>>
     suspend fun getImages(
         name : String,
         sol: String?,

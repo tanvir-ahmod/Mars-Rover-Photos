@@ -7,5 +7,5 @@ import com.example.marsroverimages.models.Rover
 
 interface RoverDataSource {
     suspend fun getRovers(): Result<List<Rover>>
-    suspend fun getAvailableCameras(rover: Rover): Result<List<Camera>>
+    suspend fun getAvailableCameras(roveId: Int): Result<List<Camera>>
 }

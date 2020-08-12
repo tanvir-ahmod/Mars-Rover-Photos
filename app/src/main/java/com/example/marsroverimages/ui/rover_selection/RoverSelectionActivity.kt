@@ -43,7 +43,7 @@ class RoverSelectionActivity : BaseActivity<RoverSelectionViewModel>() {
         }.attach()
 
         btn_select.setOnClickListener {
-            mViewModel.showAvailableCamera()
+            mViewModel.goToNextActivity()
         }
     }
 
@@ -52,12 +52,7 @@ class RoverSelectionActivity : BaseActivity<RoverSelectionViewModel>() {
             roverSelectionAdapter.addRovers(rovers)
         })
 
-        mViewModel.showAvailableCameraDialog.observe(this, Observer { isShow ->
-            if (isShow) {
-                val bottomSheetFragment = BottomSheetDialog()
-                bottomSheetFragment.show(supportFragmentManager, bottomSheetFragment.tag)
-            }
-        })
+
         mViewModel.gotoNextActivity.observe(this, Observer { queryModel ->
             val intent = Intent(this, ShowImageActivity::class.java)
             intent.putExtra(QUERY_MODEL, queryModel)

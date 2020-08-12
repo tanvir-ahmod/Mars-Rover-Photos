@@ -17,18 +17,15 @@ class RoverSelectionViewModel @ViewModelInject constructor(private val roverRepo
     private val _rovers = MutableLiveData<List<Rover>>()
     val rovers: LiveData<List<Rover>> = _rovers
 
-    private val _showAvailableCameraDialog = MutableLiveData<Boolean>(false)
-    val showAvailableCameraDialog = _showAvailableCameraDialog
 
-    private val _availableCameras = MutableLiveData<List<Camera>>()
-    val availableCameras: LiveData<List<Camera>> = _availableCameras
 
     private val _gotoNextActivity = MutableLiveData<Boolean>()
     val gotoNextActivity: LiveData<QueryModel> = _gotoNextActivity.switchMap { isGotoNextActivity ->
         val model = QueryModel()
         if (isGotoNextActivity) {
             model.name = selectedRover.name
-            model.camera = selectedRover.camera
+            model.sol = "1000"
+            model.roverId = selectedRover.id
         }
         return@switchMap MutableLiveData<QueryModel>(model)
     }
@@ -42,7 +39,7 @@ class RoverSelectionViewModel @ViewModelInject constructor(private val roverRepo
         viewModelScope.launch {
             val roversData = roverRepository.getRovers()
             if (roversData is Result.Success) {
-                _rovers.value = roversData.data
+                _rovers.value = roversData.data!!
             }
         }
     }
@@ -53,18 +50,9 @@ class RoverSelectionViewModel @ViewModelInject constructor(private val roverRepo
         }
     }
 
-    fun showAvailableCamera() {
-        viewModelScope.launch {
-            val availableCameraList = roverRepository.getAvailableCameras(selectedRover)
-            if (availableCameraList is Result.Success) {
-                _availableCameras.value = availableCameraList.data
-                _showAvailableCameraDialog.value = true
-            }
-        }
-    }
 
-    fun goToNextActivity(camera: Camera) {
-        selectedRover.camera = camera.name
+
+    fun goToNextActivity() {
         _gotoNextActivity.value = true
     }
 }

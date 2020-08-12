@@ -16,8 +16,8 @@ class RoverRepositoryImpl @Inject constructor(
 ) :
     RoverRepository {
     override suspend fun getRovers(): Result<List<Rover>> = roverDataSource.getRovers()
-    override suspend fun getAvailableCameras(rover: Rover): Result<List<Camera>> =
-        roverDataSource.getAvailableCameras(rover)
+    override suspend fun getAvailableCameras(roverId: Int): Result<List<Camera>> =
+        roverDataSource.getAvailableCameras(roverId)
 
 
     override suspend fun getImages(
