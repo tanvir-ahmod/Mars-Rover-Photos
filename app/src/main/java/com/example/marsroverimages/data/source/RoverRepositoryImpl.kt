@@ -1,6 +1,7 @@
 package com.example.marsroverimages.data.source
 
 import com.example.marsroverimages.data.Result
+import com.example.marsroverimages.data.source.local.LocalRoverDataSource
 import com.example.marsroverimages.data.source.remote.RoverServiceImpl
 import com.example.marsroverimages.models.Camera
 import com.example.marsroverimages.models.Rover
@@ -10,7 +11,7 @@ import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
 class RoverRepositoryImpl @Inject constructor(
-    private val roverDataSource: RoverDataSource,
+    private val roverDataSource: LocalRoverDataSource,
     private val roverImageServiceImpl: RoverServiceImpl
 ) :
     RoverRepository {
@@ -20,13 +21,14 @@ class RoverRepositoryImpl @Inject constructor(
 
 
     override suspend fun getImages(
-        name : String,
-        sol: String,
-        apiKey: String,
-        camera: String,
-        page: Int
+        name: String,
+        sol: String?,
+        apiKey: String?,
+        camera: String?,
+        earthDate: String?,
+        page: Int?
     ): Flow<Result<RoverData>> = flow {
-        val images = roverImageServiceImpl.getImages(name, sol, apiKey, camera, page)
+        val images = roverImageServiceImpl.getImages(name, sol, apiKey, camera, earthDate, page)
 
         if (images.isSuccessful)
             images.body()?.let { roverData ->

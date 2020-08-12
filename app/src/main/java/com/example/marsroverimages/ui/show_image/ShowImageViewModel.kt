@@ -1,6 +1,5 @@
 package com.example.marsroverimages.ui.show_image
 
-import android.util.Log
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -30,13 +29,13 @@ class ShowImageViewModel @ViewModelInject constructor(private val roverRepositor
 
     fun getImages() {
         viewModelScope.launch {
-            Log.d("queryModel", "camera ${queryModel.camera}")
             val images = roverRepository.getImages(
                 name = queryModel.name,
                 apiKey = Constants.API_KEY,
                 page = 1,
                 sol = "1000",
-                camera = queryModel.camera
+                earthDate = "2020-7-11",
+                camera = null
             )
 
             images.onEach { result ->
@@ -44,5 +43,10 @@ class ShowImageViewModel @ViewModelInject constructor(private val roverRepositor
             }.launchIn(viewModelScope)
 
         }
+    }
+
+    fun changeDate(earthDate: String) {
+        queryModel.earthDate = earthDate
+        getImages()
     }
 }

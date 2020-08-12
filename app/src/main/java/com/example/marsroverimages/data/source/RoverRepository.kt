@@ -11,9 +11,10 @@ interface RoverRepository {
     suspend fun getAvailableCameras(rover: Rover): Result<List<Camera>>
     suspend fun getImages(
         name : String,
-        sol: String,
-        apiKey: String,
-        camera: String,
-        page: Int
+        sol: String?,
+        apiKey: String?,
+        camera: String?,
+        earthDate: String?,
+        page: Int?
     ): Flow<Result<RoverData>>
 }

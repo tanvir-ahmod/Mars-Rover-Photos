@@ -5,13 +5,16 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
 import com.example.marsroverimages.R
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import kotlinx.android.synthetic.main.dialog_filter.view.*
 import java.util.*
 
 class FilterOptionBottomSheet : BottomSheetDialogFragment() {
-    val selectedDate = Calendar.getInstance()
+    private val sharedViewModel: ShowImageViewModel by activityViewModels()
+    private val selectedDate = Calendar.getInstance()
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -34,8 +37,10 @@ class FilterOptionBottomSheet : BottomSheetDialogFragment() {
                     selectedDate.set(Calendar.MONTH, selectedMonth)
                     selectedDate.set(Calendar.DAY_OF_MONTH, selectedDay)
 
-                    val selectedDateText = "$selectedDay-$selectedMonth-$selectedYear"
+                    val selectedDateText = "$selectedYear-$selectedMonth-$selectedDay"
                     view.tv_date.text = selectedDateText
+
+                    sharedViewModel.changeDate(selectedDateText)
                 },
                 selectedDate.get(Calendar.YEAR),
                 selectedDate.get(Calendar.MONTH),

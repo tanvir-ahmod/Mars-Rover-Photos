@@ -37,4 +37,5 @@ ext {
     materialVersion = '1.3.0-alpha02'
     numberPickerVersion = '2.4.10'
     gsonVersion = '2.8.6'
+    okhttpInterceptorVersion = '3.13.1'
 }

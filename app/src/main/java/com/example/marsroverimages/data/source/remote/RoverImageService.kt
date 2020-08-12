@@ -11,12 +11,14 @@ interface RoverImageService {
     suspend fun getImages(
         @Path("roverName") roverName: String,
         @Query("sol")
-        sol: String,
+        sol: String?,
         @Query("api_key")
-        apiKey: String,
+        apiKey: String?,
         @Query("camera")
-        camera: String,
+        camera: String?,
+        @Query("earth_date")
+        earthDate: String?,
         @Query("page")
-        page: Int
+        page: Int?
     ): Response<RoverData>
 }
