@@ -14,6 +14,11 @@ import kotlinx.android.synthetic.main.activity_rover_selection.*
 
 @AndroidEntryPoint
 class RoverSelectionActivity : BaseActivity<RoverSelectionViewModel>() {
+
+    companion object {
+        const val QUERY_MODEL = "queryModel"
+    }
+
     private lateinit var roverSelectionAdapter: RoverSelectionAdapter
     override val mViewModel: RoverSelectionViewModel by viewModels()
 
@@ -53,10 +58,10 @@ class RoverSelectionActivity : BaseActivity<RoverSelectionViewModel>() {
                 bottomSheetFragment.show(supportFragmentManager, bottomSheetFragment.tag)
             }
         })
-        mViewModel.gotoNextActivity.observe(this, Observer { isStartActivity ->
-            if (isStartActivity) {
-              startActivity(Intent(this, ShowImageActivity::class.java))
-            }
+        mViewModel.gotoNextActivity.observe(this, Observer { queryModel ->
+            val intent = Intent(this, ShowImageActivity::class.java)
+            intent.putExtra(QUERY_MODEL, queryModel)
+            startActivity(intent)
         })
     }
 }

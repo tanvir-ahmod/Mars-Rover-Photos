@@ -8,5 +8,6 @@ data class Rover  (
     val image: Int,
     val launchDate: String,
     val landingDate: String,
-    val currentStatus: String
+    val currentStatus: String,
+    var camera:  String = "FHAZ"
 ) : Serializable

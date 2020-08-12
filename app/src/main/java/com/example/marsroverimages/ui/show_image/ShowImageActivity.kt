@@ -10,7 +10,9 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.example.marsroverimages.R
 import com.example.marsroverimages.base.ui.BaseActivity
 import com.example.marsroverimages.data.Result
+import com.example.marsroverimages.models.QueryModel
 import com.example.marsroverimages.models.RoverPhoto
+import com.example.marsroverimages.ui.rover_selection.RoverSelectionActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_show_image.*
 
@@ -23,9 +25,16 @@ class ShowImageActivity : BaseActivity<ShowImageViewModel>() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_show_image)
+        val queryModel =
+            intent?.getSerializableExtra(RoverSelectionActivity.QUERY_MODEL) as QueryModel
+        mViewModel.setQueryModel(queryModel)
+        mViewModel.getImages()
 
+        initUI()
         setUpObservers()
+    }
 
+    private fun initUI() {
         rv_images.layoutManager = GridLayoutManager(this, 2)
         rv_images.adapter = roverImageAdapter
     }

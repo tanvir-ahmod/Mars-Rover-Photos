@@ -13,12 +13,12 @@ data class RoverX(
 )
 
 data class RoverPhoto(
-//    val camera: CameraX,
-//    val earth_date: String,
-//    val id: Int,
-    val img_src: String
-//    val rover: RoverX,
-//    val sol: Int
+    val camera: CameraX,
+    val earth_date: String,
+    val id: Int,
+    val img_src: String,
+    val rover: RoverX,
+    val sol: Int
 )
 
 data class CameraX(

@@ -3,8 +3,9 @@ package com.example.marsroverimages.ui.rover_selection
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
 import com.example.marsroverimages.data.Result
-import com.example.marsroverimages.data.Source.RoverRepository
+import com.example.marsroverimages.data.source.RoverRepository
 import com.example.marsroverimages.models.Camera
+import com.example.marsroverimages.models.QueryModel
 import com.example.marsroverimages.models.Rover
 import kotlinx.coroutines.launch
 
@@ -22,8 +23,16 @@ class RoverSelectionViewModel @ViewModelInject constructor(private val roverRepo
     private val _availableCameras = MutableLiveData<List<Camera>>()
     val availableCameras: LiveData<List<Camera>> = _availableCameras
 
-    private val _gotoNextActivity = MutableLiveData<Boolean>(false)
-    val gotoNextActivity = _gotoNextActivity
+    private val _gotoNextActivity = MutableLiveData<Boolean>()
+    val gotoNextActivity: LiveData<QueryModel> = _gotoNextActivity.switchMap { isGotoNextActivity ->
+        val model = QueryModel()
+        if (isGotoNextActivity) {
+            model.name = selectedRover.name
+            model.camera = selectedRover.camera
+        }
+        return@switchMap MutableLiveData<QueryModel>(model)
+    }
+
 
     init {
         getRovers()
@@ -55,6 +64,7 @@ class RoverSelectionViewModel @ViewModelInject constructor(private val roverRepo
     }
 
     fun goToNextActivity(camera: Camera) {
+        selectedRover.camera = camera.name
         _gotoNextActivity.value = true
     }
 }

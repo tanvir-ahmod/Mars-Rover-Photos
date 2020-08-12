@@ -1,6 +1,6 @@
 package com.example.marsroverimages.di
 
-import com.example.marsroverimages.data.Source.remote.RoverImageService
+import com.example.marsroverimages.data.source.remote.RoverImageService
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import dagger.Module

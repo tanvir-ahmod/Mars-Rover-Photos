@@ -1,4 +1,4 @@
-package com.example.marsroverimages.data.Source
+package com.example.marsroverimages.data.source
 
 import com.example.marsroverimages.data.Result
 import com.example.marsroverimages.models.Camera
@@ -9,5 +9,11 @@ import kotlinx.coroutines.flow.Flow
 interface RoverRepository {
     suspend fun getRovers(): Result<List<Rover>>
     suspend fun getAvailableCameras(rover: Rover): Result<List<Camera>>
-    suspend fun getImages(sol: String, apiKey: String, page: Int): Flow<Result<RoverData>>
+    suspend fun getImages(
+        name : String,
+        sol: String,
+        apiKey: String,
+        camera: String,
+        page: Int
+    ): Flow<Result<RoverData>>
 }

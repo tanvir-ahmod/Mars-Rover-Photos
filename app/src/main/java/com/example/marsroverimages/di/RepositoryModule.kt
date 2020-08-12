@@ -1,9 +1,9 @@
 package com.example.marsroverimages.di
 
-import com.example.marsroverimages.data.Source.RoverDataSource
-import com.example.marsroverimages.data.Source.RoverRepository
-import com.example.marsroverimages.data.Source.RoverRepositoryImpl
-import com.example.marsroverimages.data.Source.local.LocalRoverDataSource
+import com.example.marsroverimages.data.source.RoverDataSource
+import com.example.marsroverimages.data.source.RoverRepository
+import com.example.marsroverimages.data.source.RoverRepositoryImpl
+import com.example.marsroverimages.data.source.local.LocalRoverDataSource
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
