@@ -29,6 +29,10 @@ class ShowImageActivity : BaseActivity<ShowImageViewModel, ActivityShowImageBind
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(mViewBinding.root)
+        setSupportActionBar(mViewBinding.toolbar)
+        supportActionBar?.setDisplayShowTitleEnabled(false)
+        mViewBinding.vm = mViewModel
+
         val queryModel =
             intent?.getSerializableExtra(RoverSelectionActivity.QUERY_MODEL) as QueryModel
         mViewModel.setQueryModel(queryModel)
@@ -42,6 +46,13 @@ class ShowImageActivity : BaseActivity<ShowImageViewModel, ActivityShowImageBind
         mViewBinding.rvImages.apply {
             layoutManager = GridLayoutManager(this@ShowImageActivity, 2)
             adapter = roverImageAdapter
+        }
+
+        mViewBinding.chipCameraName.setOnCloseIconClickListener {
+            mViewModel.clearCameraFilter()
+        }
+        mViewBinding.chipDate.setOnCloseIconClickListener {
+            mViewModel.clearDateFilter()
         }
     }
 

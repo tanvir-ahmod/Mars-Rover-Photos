@@ -1,5 +1,6 @@
 package com.example.marsroverimages.ui.show_image
 
+import androidx.databinding.ObservableField
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
 import com.example.marsroverimages.data.Result
@@ -19,10 +20,8 @@ class ShowImageViewModel @ViewModelInject constructor(private val roverRepositor
 
     private val selectDate = Calendar.getInstance()
     private var queryModel = QueryModel()
-    val selectedCameraName: String?
-        get() = queryModel.camera
-    val selectedDateText: String?
-        get() = queryModel.earthDate
+    var selectedCameraName = ObservableField<String>("")
+    var selectedDateText = ObservableField<String>("")
 
     private val _fetchImages = MutableLiveData<Result<RoverData>>()
     val images: LiveData<Result<RoverData>> = _fetchImages
@@ -77,6 +76,7 @@ class ShowImageViewModel @ViewModelInject constructor(private val roverRepositor
         selectDate.set(Calendar.DAY_OF_MONTH, date)
 
         queryModel.earthDate = "$year-${month + 1}-$date" // month is 0 based index
+        selectedDateText.set("$year-$month-$date")
         queryModel.sol = null
         _showDatePicker.value = false
         getImages()
@@ -84,6 +84,7 @@ class ShowImageViewModel @ViewModelInject constructor(private val roverRepositor
 
     fun changeCamera(camera: String) {
         queryModel.camera = camera
+        selectedCameraName.set(camera)
         getImages()
         changeAvailableCameraShowStatus()
     }
@@ -113,5 +114,21 @@ class ShowImageViewModel @ViewModelInject constructor(private val roverRepositor
 
     fun showDatePicker() {
         _showDatePicker.value = true
+    }
+
+    fun clearDateFilter() {
+        queryModel.earthDate = null
+        if (queryModel.camera == null)
+            queryModel.sol = "1000"
+        selectedDateText.set("")
+        getImages()
+    }
+
+    fun clearCameraFilter() {
+        queryModel.camera = null
+        if (queryModel.earthDate == null)
+            queryModel.sol = "1000"
+        selectedCameraName.set("")
+        getImages()
     }
 }

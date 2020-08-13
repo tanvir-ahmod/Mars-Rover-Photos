@@ -1,16 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.show_image.ShowImageActivity">
+    xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_images"
+        <import type="android.view.View" />
+
+        <variable
+            name="vm"
+            type="com.example.marsroverimages.ui.show_image.ShowImageViewModel" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:background="@color/Grey"
+        tools:context=".ui.show_image.ShowImageActivity">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:background="@color/colorWhite"
+            android:layout_height="wrap_content"
+            android:minHeight="?attr/actionBarSize"
+            app:layout_constraintBottom_toTopOf="@+id/rv_images"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/chipGroup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_no_filter"
+                    style="@style/Widget.MaterialComponents.Chip.Choice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:clickable="false"
+                    android:visibility="@{vm.selectedDateText.isEmpty() &amp;&amp;  vm.selectedCameraName.isEmpty() ? View.VISIBLE : View.GONE}"
+                    android:text="@string/no_filter" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_date"
+                    style="@style/Widget.MaterialComponents.Chip.Entry"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="@{vm.selectedDateText.isEmpty() ? View.GONE : View.VISIBLE}"
+                    android:text="@{vm.selectedDateText}" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_camera_name"
+                    style="@style/Widget.MaterialComponents.Chip.Entry"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="@{vm.selectedCameraName.isEmpty() ? View.GONE : View.VISIBLE}"
+                    android:text="@{vm.selectedCameraName}" />
+            </com.google.android.material.chip.ChipGroup>
+
+        </androidx.appcompat.widget.Toolbar>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_images"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
