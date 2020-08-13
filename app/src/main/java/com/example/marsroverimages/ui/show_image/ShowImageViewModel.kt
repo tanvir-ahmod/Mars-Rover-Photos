@@ -12,11 +12,17 @@ import com.example.marsroverimages.utills.Constants
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
+import java.util.*
 
 class ShowImageViewModel @ViewModelInject constructor(private val roverRepository: RoverRepository) :
     ViewModel() {
 
+    private val selectDate = Calendar.getInstance()
     private var queryModel = QueryModel()
+    val selectedCameraName: String?
+        get() = queryModel.camera
+    val selectedDateText: String?
+        get() = queryModel.earthDate
 
     private val _fetchImages = MutableLiveData<Result<RoverData>>()
     val images: LiveData<Result<RoverData>> = _fetchImages
@@ -28,13 +34,23 @@ class ShowImageViewModel @ViewModelInject constructor(private val roverRepositor
     val showImageDetails: LiveData<RoverPhoto> = _showImageDetails
 
     private val _showAvailableCameras = MutableLiveData<Boolean>(false)
-
     val availableCameras: LiveData<List<Camera>> = _showAvailableCameras.switchMap { isShow ->
         if (isShow)
             fetchAvailableCameras()
         else
             MutableLiveData<List<Camera>>(listOf())
     }
+
+    private val _showDatePicker = MutableLiveData<Boolean>(false)
+    val showDatePicker: LiveData<Calendar> = _showDatePicker.switchMap { isShow ->
+        val datePicker = MutableLiveData<Calendar>(null)
+        if (isShow)
+            datePicker.value = selectDate
+
+        return@switchMap datePicker
+    }
+
+
 
 
     fun setQueryModel(queryModel: QueryModel) {
@@ -59,9 +75,14 @@ class ShowImageViewModel @ViewModelInject constructor(private val roverRepositor
         }
     }
 
-    fun changeDate(earthDate: String) {
-        queryModel.earthDate = earthDate
+    fun changeDate(year: Int, month: Int, date: Int) {
+        selectDate.set(Calendar.YEAR, year)
+        selectDate.set(Calendar.MONTH, month)
+        selectDate.set(Calendar.DAY_OF_MONTH, date)
+
+        queryModel.earthDate = "$year-${month + 1}-$date" // month is 0 based index
         queryModel.sol = null
+        _showDatePicker.value = false
         getImages()
     }
 
@@ -93,4 +114,9 @@ class ShowImageViewModel @ViewModelInject constructor(private val roverRepositor
         _showImageDetailsDialog.value = true
         _showImageDetails.value = rover
     }
+
+    fun showDatePicker() {
+        _showDatePicker.value = true
+    }
+
 }

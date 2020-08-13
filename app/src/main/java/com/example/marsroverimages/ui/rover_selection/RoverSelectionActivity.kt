@@ -5,15 +5,15 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.lifecycle.Observer
 import androidx.viewpager2.widget.ViewPager2
-import com.example.marsroverimages.R
 import com.example.marsroverimages.base.ui.BaseActivity
+import com.example.marsroverimages.databinding.ActivityRoverSelectionBinding
 import com.example.marsroverimages.ui.show_image.ShowImageActivity
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.activity_rover_selection.*
 
 @AndroidEntryPoint
-class RoverSelectionActivity : BaseActivity<RoverSelectionViewModel>() {
+class RoverSelectionActivity :
+    BaseActivity<RoverSelectionViewModel, ActivityRoverSelectionBinding>() {
 
     companion object {
         const val QUERY_MODEL = "queryModel"
@@ -22,29 +22,37 @@ class RoverSelectionActivity : BaseActivity<RoverSelectionViewModel>() {
     private lateinit var roverSelectionAdapter: RoverSelectionAdapter
     override val mViewModel: RoverSelectionViewModel by viewModels()
 
+    override fun getViewBinding(): ActivityRoverSelectionBinding =
+        ActivityRoverSelectionBinding.inflate(layoutInflater)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_rover_selection)
+        setContentView(mViewBinding.root)
         init()
         setUpObservers()
     }
 
     private fun init() {
+        mViewBinding.vm = mViewModel
         roverSelectionAdapter = RoverSelectionAdapter(this)
-        pager.adapter = roverSelectionAdapter
-        pager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
-            override fun onPageSelected(position: Int) {
-                super.onPageSelected(position)
-                mViewModel.setSelectedRover(position)
-            }
-        })
+        mViewBinding.pager.apply {
+            adapter = roverSelectionAdapter
 
-        TabLayoutMediator(tab_layout, pager) { _, _ ->
+            registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+                override fun onPageSelected(position: Int) {
+                    mViewModel.setSelectedRover(position)
+                    super.onPageSelected(position)
+                }
+            })
+        }
+
+
+        TabLayoutMediator(mViewBinding.tabLayout, mViewBinding.pager) { _, _ ->
         }.attach()
 
-        btn_select.setOnClickListener {
+        /*mViewBinding.btnSelect.setOnClickListener {
             mViewModel.goToNextActivity()
-        }
+        }*/
     }
 
     private fun setUpObservers() {

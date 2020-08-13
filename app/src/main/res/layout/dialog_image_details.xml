@@ -1,71 +1,85 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:padding="16dp">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/cv_rover"
+    <data>
+
+        <variable
+            name="vm"
+            type="com.example.marsroverimages.ui.show_image.ShowImageViewModel" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:elevation="20dp"
-        app:cardCornerRadius="5dp"
-        app:layout_constraintBottom_toTopOf="@+id/tl_container"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0">
+        android:padding="16dp">
 
-        <ImageView
-            android:id="@+id/iv_rover"
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cv_rover"
             android:layout_width="match_parent"
-            android:layout_height="350dp"
-            android:scaleType="fitXY"
-            tools:src="@drawable/curiosity" />
-    </com.google.android.material.card.MaterialCardView>
+            android:layout_height="wrap_content"
+            android:elevation="20dp"
+            app:cardCornerRadius="5dp"
+            app:layout_constraintBottom_toTopOf="@+id/tl_container"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0">
 
-    <TableLayout
-        android:id="@+id/tl_container"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
-        android:stretchColumns="*"
-        app:layout_constraintTop_toBottomOf="@+id/cv_rover">
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/iv_rover"
+                android:layout_width="match_parent"
+                android:layout_height="350dp"
+                android:scaleType="fitXY"
+                app:imageUrl="@{vm.showImageDetails.img_src}"
+                tools:src="@drawable/curiosity" />
+        </com.google.android.material.card.MaterialCardView>
 
-        <TableRow android:layout_marginTop="10dp">
+        <TableLayout
+            android:id="@+id/tl_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:stretchColumns="*"
+            app:layout_constraintTop_toBottomOf="@+id/cv_rover">
 
-            <com.google.android.material.textview.MaterialTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/camera"
-                android:textColor="@android:color/black"
-                android:textSize="16sp" />
+            <TableRow android:layout_marginTop="10dp">
 
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/tv_camera_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                tools:text="Front Hazard Avoidance Camera" />
-        </TableRow>
+                <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/camera"
+                    android:textColor="@android:color/black"
+                    android:textSize="16sp" />
 
-        <TableRow android:layout_marginTop="10dp">
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tv_camera_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{vm.showImageDetails.camera.full_name}"
+                    tools:text="Front Hazard Avoidance Camera" />
+            </TableRow>
 
-            <com.google.android.material.textview.MaterialTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/earth_date"
-                android:textColor="@android:color/black"
-                android:textSize="16sp" />
+            <TableRow android:layout_marginTop="10dp">
 
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/tv_earth_date"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                tools:text="10-10-2010" />
-        </TableRow>
+                <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/earth_date"
+                    android:textColor="@android:color/black"
+                    android:textSize="16sp" />
 
-    </TableLayout>
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tv_earth_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{vm.showImageDetails.earth_date}"
+                    tools:text="10-10-2010" />
+            </TableRow>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        </TableLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
 
 
