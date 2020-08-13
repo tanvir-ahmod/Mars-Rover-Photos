@@ -11,7 +11,7 @@ android {
     defaultConfig {
         applicationId "com.example.marsroverimages"
         minSdkVersion 21
-        targetSdkVersion 29
+        targetSdkVersion 30
         versionCode 1
         versionName "1.0"
 
@@ -55,16 +55,14 @@ dependencies {
     //Architecture Component
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:$archLifecycleVersion"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$archLifecycleVersion"
+    implementation "android.arch.lifecycle:extensions:1.1.1"
+    implementation "androidx.fragment:fragment-ktx:1.2.5"
 
     //Hilt
     implementation "com.google.dagger:hilt-android:$hiltAndroidXVersion"
     implementation 'androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha02'
     kapt "com.google.dagger:hilt-android-compiler:$hiltAndroidXVersion"
     kapt "androidx.hilt:hilt-compiler:1.0.0-alpha02"
-
-    //NavGraph
-    implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
-    implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
 
     //ViewPager2
     implementation "androidx.viewpager2:viewpager2:$viewPagerVersion"
@@ -80,9 +78,6 @@ dependencies {
     implementation "com.github.bumptech.glide:glide:$glideVersion"
     annotationProcessor "com.github.bumptech.glide:compiler:$glideVersion"
 
-    //Number Picker
-    implementation "com.shawnlin:number-picker:$numberPickerVersion"
-
     //Retrofit
     implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
     implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
@@ -90,6 +85,4 @@ dependencies {
 
     //GSON
     implementation "com.google.code.gson:gson:$gsonVersion"
-
-
 }

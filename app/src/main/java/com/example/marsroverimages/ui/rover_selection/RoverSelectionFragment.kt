@@ -5,15 +5,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.example.marsroverimages.base.ui.BaseFragment
 import com.example.marsroverimages.databinding.FragmentRoverSelectionBinding
 import com.example.marsroverimages.models.Rover
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class RoverSelectionFragment : BaseFragment() {
+class RoverSelectionFragment : Fragment() {
 
-    lateinit var roverModel: Rover
+    private lateinit var roverModel: Rover
     private lateinit var viewDataBinding: FragmentRoverSelectionBinding
 
     companion object {

@@ -1,12 +1,10 @@
 <resources>
     <string name="app_name">MarsRoverImages</string>
     <string name="select">Select</string>
-    <string name="available_camera_view">Available Camera View (select one)</string>
     <string name="filter">Filter</string>
     <string name="date">Date</string>
-    <string name="sol">SOL</string>
-    <string name="search">Search</string>
     <string name="camera">Camera</string>
     <string name="earth_date">Earth Date</string>
     <string name="change">Change</string>
+    <string name="name">Name</string>
 </resources>
