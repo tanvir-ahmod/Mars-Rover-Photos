@@ -46,20 +46,14 @@ class RoverSelectionActivity :
             })
         }
 
-
         TabLayoutMediator(mViewBinding.tabLayout, mViewBinding.pager) { _, _ ->
         }.attach()
-
-        /*mViewBinding.btnSelect.setOnClickListener {
-            mViewModel.goToNextActivity()
-        }*/
     }
 
     private fun setUpObservers() {
         mViewModel.rovers.observe(this, Observer { rovers ->
             roverSelectionAdapter.addRovers(rovers)
         })
-
 
         mViewModel.gotoNextActivity.observe(this, Observer { queryModel ->
             val intent = Intent(this, ShowImageActivity::class.java)

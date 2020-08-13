@@ -16,8 +16,6 @@ class RoverSelectionViewModel @ViewModelInject constructor(private val roverRepo
     private val _rovers = MutableLiveData<List<Rover>>()
     val rovers: LiveData<List<Rover>> = _rovers
 
-
-
     private val _gotoNextActivity = MutableLiveData<Boolean>()
     val gotoNextActivity: LiveData<QueryModel> = _gotoNextActivity.switchMap { isGotoNextActivity ->
         val model = QueryModel()
@@ -28,7 +26,6 @@ class RoverSelectionViewModel @ViewModelInject constructor(private val roverRepo
         }
         return@switchMap MutableLiveData<QueryModel>(model)
     }
-
 
     init {
         getRovers()
@@ -48,8 +45,6 @@ class RoverSelectionViewModel @ViewModelInject constructor(private val roverRepo
             selectedRover = it[position]
         }
     }
-
-
 
     fun goToNextActivity() {
         _gotoNextActivity.value = true

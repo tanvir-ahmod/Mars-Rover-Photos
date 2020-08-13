@@ -25,31 +25,21 @@ class FilterOptionBottomSheet : BottomSheetDialogFragment() {
         mViewBinding = DialogFilterBinding.inflate(inflater, container, false).apply {
             vm = sharedViewModel
         }
-
         return mViewBinding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         initUI()
         setUpObservers()
-
-
     }
 
     private fun initUI() {
-
-       /* mViewBinding.btnChooseCamera.setOnClickListener {
-            sharedViewModel.changeAvailableCameraShowStatus()
-        }*/
-
         mViewBinding.rvCameras.apply {
             this.layoutManager = GridLayoutManager(context, 3)
             this.adapter = availableCameraAdapter
         }
     }
-
 
     private fun setUpObservers() {
         sharedViewModel.availableCameras.observe(
@@ -64,7 +54,6 @@ class FilterOptionBottomSheet : BottomSheetDialogFragment() {
                 date?.let {
                     showDatePicker(date)
                 }
-
             })
     }
 

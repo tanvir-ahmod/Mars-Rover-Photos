@@ -50,9 +50,6 @@ class ShowImageViewModel @ViewModelInject constructor(private val roverRepositor
         return@switchMap datePicker
     }
 
-
-
-
     fun setQueryModel(queryModel: QueryModel) {
         this.queryModel = queryModel
     }
@@ -71,7 +68,6 @@ class ShowImageViewModel @ViewModelInject constructor(private val roverRepositor
             images.onEach { result ->
                 _fetchImages.value = result
             }.launchIn(viewModelScope)
-
         }
     }
 
@@ -118,5 +114,4 @@ class ShowImageViewModel @ViewModelInject constructor(private val roverRepositor
     fun showDatePicker() {
         _showDatePicker.value = true
     }
-
 }

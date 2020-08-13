@@ -1,13 +1,11 @@
 package com.example.marsroverimages.ui.rover_selection
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.marsroverimages.R
+import com.example.marsroverimages.databinding.ItemRoverCameraBinding
 import com.example.marsroverimages.models.Camera
-import kotlinx.android.synthetic.main.item_rover_camera.view.*
 
 
 class AvailableCameraAdapter(private val onItemClicked: (String) -> Unit) :
@@ -20,21 +18,23 @@ class AvailableCameraAdapter(private val onItemClicked: (String) -> Unit) :
         notifyDataSetChanged()
     }
 
-    class CameraHolder(private val view: View) : RecyclerView.ViewHolder(view) {
+    class CameraHolder(private val binding: ItemRoverCameraBinding) :
+        RecyclerView.ViewHolder(binding.root) {
         fun bindData(camera: Camera, onItemClicked: (String) -> Unit) {
-            view.tv_camera_name.text = camera.name
-            Glide.with(view.iv_camera.context).load(camera.image).into(view.iv_camera)
+            binding.tvCameraName.text = camera.name
+            Glide.with(binding.ivCamera.context).load(camera.image).into(binding.ivCamera)
 
-            view.root_layout.setOnClickListener {
+            binding.rootLayout.setOnClickListener {
                 onItemClicked(camera.name)
             }
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CameraHolder {
-        val inflatedView =
-            LayoutInflater.from(parent.context).inflate(R.layout.item_rover_camera, parent, false)
-        return CameraHolder(inflatedView)
+
+        val binding =
+            ItemRoverCameraBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return CameraHolder(binding)
     }
 
     override fun getItemCount(): Int = cameras.size

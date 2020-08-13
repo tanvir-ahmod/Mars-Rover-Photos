@@ -1,4 +1,4 @@
-package com.example.marsroverimages.data.source
+package com.example.marsroverimages.data.source.local
 
 import com.example.marsroverimages.data.Result
 import com.example.marsroverimages.models.Camera

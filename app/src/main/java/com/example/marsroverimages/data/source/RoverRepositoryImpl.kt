@@ -19,7 +19,6 @@ class RoverRepositoryImpl @Inject constructor(
     override suspend fun getAvailableCameras(roverId: Int): Result<List<Camera>> =
         roverDataSource.getAvailableCameras(roverId)
 
-
     override suspend fun getImages(
         name: String,
         sol: String?,

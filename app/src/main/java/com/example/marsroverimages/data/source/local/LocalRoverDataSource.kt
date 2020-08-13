@@ -3,12 +3,12 @@ package com.example.marsroverimages.data.source.local
 import com.example.marsroverimages.R
 import com.example.marsroverimages.data.Result
 import com.example.marsroverimages.data.Result.Success
-import com.example.marsroverimages.data.source.RoverDataSource
 import com.example.marsroverimages.models.Camera
 import com.example.marsroverimages.models.Rover
 import javax.inject.Inject
 
-class LocalRoverDataSource @Inject constructor() : RoverDataSource {
+class LocalRoverDataSource @Inject constructor() :
+    RoverDataSource {
 
     private val rovers: ArrayList<Rover> = arrayListOf()
 

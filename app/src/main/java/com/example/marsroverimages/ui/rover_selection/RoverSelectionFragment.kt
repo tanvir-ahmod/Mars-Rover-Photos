@@ -36,7 +36,6 @@ class RoverSelectionFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
         viewDataBinding = FragmentRoverSelectionBinding.inflate(inflater, container, false).apply {
             rover = roverModel
         }
