@@ -22,8 +22,8 @@
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:background="@color/colorWhite"
             android:layout_height="wrap_content"
+            android:background="@color/colorWhite"
             android:minHeight="?attr/actionBarSize"
             app:layout_constraintBottom_toTopOf="@+id/rv_images"
             app:layout_constraintTop_toTopOf="parent">
@@ -39,27 +39,38 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:clickable="false"
-                    android:visibility="@{vm.selectedDateText.isEmpty() &amp;&amp;  vm.selectedCameraName.isEmpty() ? View.VISIBLE : View.GONE}"
-                    android:text="@string/no_filter" />
+                    android:text="@string/no_filter"
+                    android:visibility="@{vm.selectedDateText.isEmpty() &amp;&amp;  vm.selectedCameraName.isEmpty() ? View.VISIBLE : View.GONE}" />
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/chip_date"
                     style="@style/Widget.MaterialComponents.Chip.Entry"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:visibility="@{vm.selectedDateText.isEmpty() ? View.GONE : View.VISIBLE}"
-                    android:text="@{vm.selectedDateText}" />
+                    android:text="@{vm.selectedDateText}"
+                    android:visibility="@{vm.selectedDateText.isEmpty() ? View.GONE : View.VISIBLE}" />
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/chip_camera_name"
                     style="@style/Widget.MaterialComponents.Chip.Entry"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:visibility="@{vm.selectedCameraName.isEmpty() ? View.GONE : View.VISIBLE}"
-                    android:text="@{vm.selectedCameraName}" />
+                    android:text="@{vm.selectedCameraName}"
+                    android:visibility="@{vm.selectedCameraName.isEmpty() ? View.GONE : View.VISIBLE}" />
             </com.google.android.material.chip.ChipGroup>
 
         </androidx.appcompat.widget.Toolbar>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_camera_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/no_image_found"
+            android:visibility="@{vm.noImageFound ? View.VISIBLE : View.GONE}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_images"

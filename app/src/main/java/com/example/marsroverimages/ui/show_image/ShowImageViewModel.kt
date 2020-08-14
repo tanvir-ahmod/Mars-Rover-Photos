@@ -26,9 +26,11 @@ class ShowImageViewModel @ViewModelInject constructor(private val roverRepositor
     private var queryModel = QueryModel()
     var selectedCameraName = ObservableField<String>("")
     var selectedDateText = ObservableField<String>("")
+    val noImageFound = ObservableField<Boolean>(false)
 
     private val _fetchImages = MutableLiveData<Result<RoverData>>()
     val images: LiveData<Result<RoverData>> = _fetchImages
+
 
     private val _showImageDetailsDialog = MutableLiveData<Boolean>(false)
     val showImageDetailsDialog: LiveData<Boolean> = _showImageDetailsDialog
@@ -72,6 +74,8 @@ class ShowImageViewModel @ViewModelInject constructor(private val roverRepositor
             images.onEach { result ->
                 showLoader.value = false
                 _fetchImages.value = result
+                if (result is Result.Success && result.data.photos.isEmpty())
+                    noImageFound.set(true)
             }.launchIn(viewModelScope)
         }
     }
