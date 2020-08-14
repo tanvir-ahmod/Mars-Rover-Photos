@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.activityViewModels
+import com.example.marsroverimages.R
 import com.example.marsroverimages.databinding.DialogImageDetailsBinding
 
 
@@ -13,14 +14,6 @@ class ImageDetailsDialog : DialogFragment() {
 
     private val sharedViewModel: ShowImageViewModel by activityViewModels()
     private lateinit var viewDataBinding: DialogImageDetailsBinding
-
-    override fun onStart() {
-        super.onStart()
-        dialog?.window?.setLayout(
-            ViewGroup.LayoutParams.MATCH_PARENT,
-            ViewGroup.LayoutParams.WRAP_CONTENT
-        )
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -38,5 +31,14 @@ class ImageDetailsDialog : DialogFragment() {
         viewDataBinding.btnClose.setOnClickListener {
             dismiss()
         }
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        dialog?.window?.setLayout(
+            ViewGroup.LayoutParams.MATCH_PARENT,
+            ViewGroup.LayoutParams.WRAP_CONTENT
+        )
+        dialog?.window?.attributes?.windowAnimations = R.style.ImageDetailAnimation
     }
 }

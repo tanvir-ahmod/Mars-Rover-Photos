@@ -1,6 +1,5 @@
 package com.example.marsroverimages.ui.rover_selection
 
-import android.app.ActivityOptions
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
@@ -59,7 +58,7 @@ class RoverSelectionActivity :
         mViewModel.gotoNextActivity.observe(this, Observer { queryModel ->
             val intent = Intent(this, ShowImageActivity::class.java)
             intent.putExtra(QUERY_MODEL, queryModel)
-            startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this).toBundle())
+            startActivity(intent)
         })
     }
 }
