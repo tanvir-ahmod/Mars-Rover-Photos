@@ -13,35 +13,58 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="16dp">
+        android:layout_height="wrap_content">
 
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/cv_rover"
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/btn_close"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/ic_close"
+            app:backgroundTint="@android:color/holo_red_dark"
+            app:fabCustomSize="30dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@android:color/white" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/rover_image_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:elevation="20dp"
-            app:cardCornerRadius="5dp"
+            android:paddingStart="16dp"
+            android:paddingTop="16dp"
+            android:paddingEnd="16dp"
             app:layout_constraintBottom_toTopOf="@+id/tl_container"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0">
 
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/iv_rover"
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cv_rover"
                 android:layout_width="match_parent"
-                android:layout_height="350dp"
-                android:scaleType="fitXY"
-                app:imageUrl="@{vm.showImageDetails.img_src}"
-                tools:src="@drawable/curiosity" />
-        </com.google.android.material.card.MaterialCardView>
+                android:layout_height="match_parent"
+                android:elevation="20dp"
+                app:cardCornerRadius="5dp">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/iv_rover"
+                    android:layout_width="match_parent"
+                    android:layout_height="350dp"
+                    android:scaleType="fitXY"
+                    app:imageUrl="@{vm.showImageDetails.img_src}"
+                    tools:src="@drawable/curiosity" />
+            </com.google.android.material.card.MaterialCardView>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <TableLayout
             android:id="@+id/tl_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
+            android:paddingStart="16dp"
+            android:paddingBottom="16dp"
+            android:paddingEnd="16dp"
             android:stretchColumns="*"
-            app:layout_constraintTop_toBottomOf="@+id/cv_rover">
+            app:layout_constraintTop_toBottomOf="@+id/rover_image_container">
 
             <TableRow android:layout_marginTop="10dp">
 
