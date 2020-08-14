@@ -82,7 +82,7 @@
                 android:layout_width="0dp"
                 android:layout_height="40dp"
                 android:layout_weight="1"
-                android:background="@drawable/rounded_button"
+                android:background="@drawable/rounded_green_button"
                 android:gravity="center"
                 android:onClick="@{()-> vm.changeAvailableCameraShowStatus()}"
                 android:text="@string/change"
@@ -92,6 +92,7 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_cameras"
+            android:layoutAnimation="@anim/recycler_view_animation"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 

@@ -63,7 +63,8 @@ class ShowImageActivity : BaseActivity<ShowImageViewModel, ActivityShowImageBind
 
     private fun setUpObservers() {
         mViewModel.images.observe(this, Observer { result ->
-                roverImageAdapter.addPhotos(result)
+            roverImageAdapter.addPhotos(result)
+            mViewBinding.rvImages.scheduleLayoutAnimation()
         })
 
         mViewModel.showImageDetailsDialog.observe(this, Observer { isShowDialog ->

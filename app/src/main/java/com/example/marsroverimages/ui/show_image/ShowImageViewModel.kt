@@ -36,6 +36,7 @@ class ShowImageViewModel @ViewModelInject constructor(private val roverRepositor
     val showImageDetails: LiveData<RoverPhoto> = _showImageDetails
 
     private val _showAvailableCameras = MutableLiveData<Boolean>(false)
+    val changeBottomSheetCloseButton :  LiveData<Boolean> = _showAvailableCameras
     val availableCameras: LiveData<List<Camera>> = _showAvailableCameras.switchMap { isShow ->
         if (isShow)
             fetchAvailableCameras()

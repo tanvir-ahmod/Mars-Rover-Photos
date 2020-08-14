@@ -71,7 +71,7 @@
             android:layout_marginStart="50dp"
             android:layout_marginEnd="50dp"
             android:layout_marginBottom="50dp"
-            android:background="@drawable/rounded_button"
+            android:background="@drawable/rounded_green_button"
             android:text="@string/select"
             android:textSize="18sp"
             android:visibility="gone"
