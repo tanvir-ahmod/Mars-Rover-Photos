@@ -11,11 +11,9 @@ import com.example.marsroverimages.data.Result
 import com.example.marsroverimages.data.source.RoverRepository
 import com.example.marsroverimages.models.Camera
 import com.example.marsroverimages.models.QueryModel
-import com.example.marsroverimages.models.RoverData
 import com.example.marsroverimages.models.RoverPhoto
 import com.example.marsroverimages.utills.Constants
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import java.util.*
 
@@ -28,9 +26,8 @@ class ShowImageViewModel @ViewModelInject constructor(private val roverRepositor
     var selectedDateText = ObservableField<String>("")
     val noImageFound = ObservableField<Boolean>(false)
 
-    private val _fetchImages = MutableLiveData<Result<RoverData>>()
-    val images: LiveData<Result<RoverData>> = _fetchImages
-
+    private val _fetchImages = MutableLiveData<List<RoverPhoto>>()
+    val images: LiveData<List<RoverPhoto>> = _fetchImages
 
     private val _showImageDetailsDialog = MutableLiveData<Boolean>(false)
     val showImageDetailsDialog: LiveData<Boolean> = _showImageDetailsDialog
@@ -51,7 +48,6 @@ class ShowImageViewModel @ViewModelInject constructor(private val roverRepositor
         val datePicker = MutableLiveData<Calendar>(null)
         if (isShow)
             datePicker.value = selectDate
-
         return@switchMap datePicker
     }
 
@@ -71,12 +67,17 @@ class ShowImageViewModel @ViewModelInject constructor(private val roverRepositor
                 camera = queryModel.camera
             )
 
-            images.onEach { result ->
+            images.collect { result ->
                 showLoader.value = false
-                _fetchImages.value = result
-                if (result is Result.Success && result.data.photos.isEmpty())
+                if (result is Result.Success) {
+                    _fetchImages.value = result.data.photos
+                    if (result.data.photos.isEmpty())
+                        noImageFound.set(true)
+                } else if (result is Result.Error) {
                     noImageFound.set(true)
-            }.launchIn(viewModelScope)
+                    showErrorMessage.value = result.exception.message.toString()
+                }
+            }
         }
     }
 

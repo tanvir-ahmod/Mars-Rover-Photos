@@ -9,7 +9,6 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.marsroverimages.R
 import com.example.marsroverimages.base.ui.BaseActivity
-import com.example.marsroverimages.data.Result
 import com.example.marsroverimages.databinding.ActivityShowImageBinding
 import com.example.marsroverimages.models.QueryModel
 import com.example.marsroverimages.models.RoverPhoto
@@ -64,9 +63,7 @@ class ShowImageActivity : BaseActivity<ShowImageViewModel, ActivityShowImageBind
 
     private fun setUpObservers() {
         mViewModel.images.observe(this, Observer { result ->
-            if (result is Result.Success) {
-                roverImageAdapter.addPhotos(result.data.photos)
-            }
+                roverImageAdapter.addPhotos(result)
         })
 
         mViewModel.showImageDetailsDialog.observe(this, Observer { isShowDialog ->
