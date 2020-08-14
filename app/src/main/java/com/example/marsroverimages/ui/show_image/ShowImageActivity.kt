@@ -1,9 +1,12 @@
 package com.example.marsroverimages.ui.show_image
 
 import android.os.Bundle
+import android.transition.Explode
+import android.transition.Fade
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
+import android.view.Window
 import androidx.activity.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
@@ -28,12 +31,18 @@ class ShowImageActivity : BaseActivity<ShowImageViewModel, ActivityShowImageBind
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        with(window) {
+            requestFeature(Window.FEATURE_CONTENT_TRANSITIONS)
+            enterTransition = Explode()
+            exitTransition = Fade ()
+        }
         setContentView(mViewBinding.root)
         setSupportActionBar(mViewBinding.toolbar)
         supportActionBar?.setDisplayShowTitleEnabled(false)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
         mViewBinding.vm = mViewModel
+
 
         val queryModel =
             intent?.getSerializableExtra(RoverSelectionActivity.QUERY_MODEL) as QueryModel

@@ -2,7 +2,11 @@ package com.example.marsroverimages.ui.show_image
 
 import androidx.databinding.ObservableField
 import androidx.hilt.lifecycle.ViewModelInject
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.switchMap
+import androidx.lifecycle.viewModelScope
+import com.example.marsroverimages.base.ui.BaseViewModel
 import com.example.marsroverimages.data.Result
 import com.example.marsroverimages.data.source.RoverRepository
 import com.example.marsroverimages.models.Camera
@@ -16,7 +20,7 @@ import kotlinx.coroutines.launch
 import java.util.*
 
 class ShowImageViewModel @ViewModelInject constructor(private val roverRepository: RoverRepository) :
-    ViewModel() {
+    BaseViewModel() {
 
     private val selectDate = Calendar.getInstance()
     private var queryModel = QueryModel()
@@ -55,6 +59,7 @@ class ShowImageViewModel @ViewModelInject constructor(private val roverRepositor
 
     fun getImages() {
         viewModelScope.launch {
+            showLoader.value = true
             val images = roverRepository.getImages(
                 name = queryModel.name,
                 apiKey = Constants.API_KEY,
@@ -65,6 +70,7 @@ class ShowImageViewModel @ViewModelInject constructor(private val roverRepositor
             )
 
             images.onEach { result ->
+                showLoader.value = false
                 _fetchImages.value = result
             }.launchIn(viewModelScope)
         }

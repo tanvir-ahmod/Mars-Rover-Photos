@@ -1,7 +1,11 @@
 package com.example.marsroverimages.ui.rover_selection
 
 import androidx.hilt.lifecycle.ViewModelInject
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.switchMap
+import androidx.lifecycle.viewModelScope
+import com.example.marsroverimages.base.ui.BaseViewModel
 import com.example.marsroverimages.data.Result
 import com.example.marsroverimages.data.source.RoverRepository
 import com.example.marsroverimages.models.QueryModel
@@ -9,7 +13,7 @@ import com.example.marsroverimages.models.Rover
 import kotlinx.coroutines.launch
 
 class RoverSelectionViewModel @ViewModelInject constructor(private val roverRepository: RoverRepository) :
-    ViewModel() {
+    BaseViewModel() {
 
     private lateinit var selectedRover: Rover
 
@@ -33,9 +37,11 @@ class RoverSelectionViewModel @ViewModelInject constructor(private val roverRepo
 
     private fun getRovers() {
         viewModelScope.launch {
+            showLoader.value = true
             val roversData = roverRepository.getRovers()
             if (roversData is Result.Success) {
                 _rovers.value = roversData.data!!
+                showLoader.value = false
             }
         }
     }
