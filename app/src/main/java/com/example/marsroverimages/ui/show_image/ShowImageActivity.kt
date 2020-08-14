@@ -31,6 +31,8 @@ class ShowImageActivity : BaseActivity<ShowImageViewModel, ActivityShowImageBind
         setContentView(mViewBinding.root)
         setSupportActionBar(mViewBinding.toolbar)
         supportActionBar?.setDisplayShowTitleEnabled(false)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayShowHomeEnabled(true)
         mViewBinding.vm = mViewModel
 
         val queryModel =
@@ -91,5 +93,10 @@ class ShowImageActivity : BaseActivity<ShowImageViewModel, ActivityShowImageBind
             }
             else -> false
         }
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
     }
 }

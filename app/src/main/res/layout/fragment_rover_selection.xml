@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-      <variable
+
+        <variable
             name="rover"
             type="com.example.marsroverimages.models.Rover" />
 
@@ -46,15 +47,16 @@
                 <com.google.android.material.textview.MaterialTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Name"
+                    android:text="@string/name"
                     android:textColor="@android:color/black"
-                    android:textSize="16sp" />
+                    android:textSize="18sp" />
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/tv_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@{rover.name}"/>
+                    android:text="@{rover.name}"
+                    android:textSize="16sp" />
             </TableRow>
 
             <TableRow android:layout_marginTop="10dp">
@@ -62,15 +64,16 @@
                 <com.google.android.material.textview.MaterialTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Launch Date"
+                    android:text="@string/launch_date"
                     android:textColor="@android:color/black"
-                    android:textSize="16sp" />
+                    android:textSize="18sp" />
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/tv_launch_date"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@{rover.landingDate}" />
+                    android:text="@{rover.landingDate}"
+                    android:textSize="16sp" />
             </TableRow>
 
             <TableRow android:layout_marginTop="10dp">
@@ -78,15 +81,16 @@
                 <com.google.android.material.textview.MaterialTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Landing date"
+                    android:text="@string/landing_date"
                     android:textColor="@android:color/black"
-                    android:textSize="16sp" />
+                    android:textSize="18sp" />
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/tv_landing_date"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@{rover.landingDate}" />
+                    android:text="@{rover.landingDate}"
+                    android:textSize="16sp" />
             </TableRow>
 
             <TableRow android:layout_marginTop="10dp">
@@ -94,15 +98,17 @@
                 <com.google.android.material.textview.MaterialTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Status"
+                    android:text="@string/status"
                     android:textColor="@android:color/black"
-                    android:textSize="16sp" />
+                    android:textSize="18sp" />
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/tv_status"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@{rover.currentStatus}" />
+                    android:text="@{rover.currentStatus}"
+                    android:textColor='@{rover.currentStatus.equalsIgnoreCase("Active") ? @android:color/holo_green_dark : @android:color/holo_red_light }'
+                    android:textSize="16sp" />
             </TableRow>
         </TableLayout>
 

@@ -29,7 +29,7 @@
                 android:layout_weight="2"
                 android:text="@string/date"
                 android:textColor="@android:color/black"
-                android:textSize="16sp" />
+                android:textSize="18sp" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/tv_date"
@@ -47,7 +47,7 @@
                 android:layout_weight="1"
                 android:onClick="@{()->vm.showDatePicker()}"
                 android:src="@drawable/ic_pick_date"
-                android:tint="@color/colorPrimary" />
+                android:tint="@color/colorAccent" />
 
         </LinearLayout>
 
@@ -66,7 +66,7 @@
                 android:gravity="center_vertical"
                 android:text="@string/camera"
                 android:textColor="@android:color/black"
-                android:textSize="16sp" />
+                android:textSize="18sp" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/iv_camera"
@@ -86,8 +86,7 @@
                 android:gravity="center"
                 android:onClick="@{()-> vm.changeAvailableCameraShowStatus()}"
                 android:text="@string/change"
-                android:textColor="@color/colorWhite"
-                android:tint="@color/colorPrimary" />
+                android:textColor="@color/colorWhite" />
 
         </LinearLayout>
 

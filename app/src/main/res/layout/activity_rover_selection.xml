@@ -18,19 +18,19 @@
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
-            app:layout_constraintTop_toTopOf="parent"
-            android:minHeight="?attr/actionBarSize"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:minHeight="?attr/actionBarSize"
+            app:layout_constraintTop_toTopOf="parent">
 
             <TextView
+                android:id="@+id/toolbar_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/select_a_rover"
-                android:textSize="24sp"
-                android:textColor="@color/colorBlack"
                 android:layout_gravity="center"
-                android:id="@+id/toolbar_title" />
+                android:text="@string/select_a_rover"
+                android:textColor="@color/colorBlack"
+                android:textSize="24sp" />
         </androidx.appcompat.widget.Toolbar>
 
         <com.google.android.material.tabs.TabLayout
@@ -42,7 +42,7 @@
             app:tabBackground="@drawable/tab_selector"
             app:tabGravity="center"
             app:tabIndicatorHeight="0dp"
-            app:tabMaxWidth="10dp" />
+            app:tabMaxWidth="15dp" />
 
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/pager"
@@ -51,12 +51,30 @@
             app:layout_constraintBottom_toTopOf="@+id/btn_select"
             app:layout_constraintTop_toBottomOf="@+id/tab_layout" />
 
-        <com.google.android.material.button.MaterialButton
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/btn_select"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="50dp"
             android:onClick="@{() -> vm.goToNextActivity()}"
+            android:src="@drawable/ic_check"
+            app:backgroundTint="@color/colorAccent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/pager"
+            app:tint="@android:color/white" />
+
+        <com.google.android.material.button.MaterialButton
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="50dp"
+            android:layout_marginEnd="50dp"
+            android:layout_marginBottom="50dp"
+            android:background="@drawable/rounded_button"
             android:text="@string/select"
+            android:textSize="18sp"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
