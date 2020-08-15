@@ -7,19 +7,19 @@
 
         <variable
             name="rover"
-            type="com.example.marsroverimages.models.Rover" />
+            type="com.example.marsroverphotos.models.Rover" />
 
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:padding="16dp">
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/cv_rover"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:elevation="20dp"
             app:cardCornerRadius="5dp"
             app:layout_constraintBottom_toTopOf="@+id/tl_container"
@@ -29,7 +29,7 @@
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/iv_rover"
                 android:layout_width="match_parent"
-                android:layout_height="350dp"
+                android:layout_height="match_parent"
                 android:scaleType="fitXY"
                 app:imageUrl="@{rover.image}" />
         </com.google.android.material.card.MaterialCardView>
@@ -37,10 +37,12 @@
         <TableLayout
             android:id="@+id/tl_container"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:layout_marginStart="5dp"
             android:stretchColumns="*"
-            app:layout_constraintTop_toBottomOf="@+id/cv_rover">
+            app:layout_constraintTop_toBottomOf="@+id/cv_rover"
+            app:layout_constraintBottom_toBottomOf="parent"
+            >
 
             <TableRow android:layout_marginTop="10dp">
 

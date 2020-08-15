@@ -1,22 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.marsroverimages">
+    package="com.example.marsroverphotos">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
-        android:name=".base.BaseApplication"
+        android:name="com.example.marsroverphotos.base.BaseApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
+        android:networkSecurityConfig="@xml/network_security_config"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.show_image.ShowImageActivity">
-
-        </activity>
-        <activity android:name=".base.ui.BaseActivity" />
-        <activity android:name=".ui.rover_selection.RoverSelectionActivity">
+        <activity android:name="com.example.marsroverphotos.ui.show_image.ShowImageActivity"/>
+        <activity android:name="com.example.marsroverphotos.base.ui.BaseActivity" />
+        <activity android:name="com.example.marsroverphotos.ui.rover_selection.RoverSelectionActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

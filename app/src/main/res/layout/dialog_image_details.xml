@@ -7,7 +7,7 @@
 
         <variable
             name="vm"
-            type="com.example.marsroverimages.ui.show_image.ShowImageViewModel" />
+            type="com.example.marsroverphotos.ui.show_image.ShowImageViewModel" />
 
     </data>
 
@@ -17,11 +17,11 @@
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/btn_close"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
             android:src="@drawable/ic_close"
             app:backgroundTint="@android:color/holo_red_dark"
-            app:fabCustomSize="30dp"
+            app:fabCustomSize="25dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1"
             app:layout_constraintStart_toStartOf="parent"
@@ -70,7 +70,7 @@
 
                 <com.google.android.material.textview.MaterialTextView
                     android:layout_width="wrap_content"
-                    android:layout_height="35dp"
+                    android:layout_height="match_parent"
                     android:text="@string/camera"
                     android:textColor="@android:color/black"
                     android:textSize="18sp" />
@@ -78,8 +78,8 @@
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/tv_camera_name"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="18sp"
+                    android:layout_height="match_parent"
+                    android:textSize="16sp"
                     android:text="@{vm.showImageDetails.camera.full_name}"
                     tools:text="Front Hazard Avoidance Camera" />
             </TableRow>
@@ -88,15 +88,15 @@
 
                 <com.google.android.material.textview.MaterialTextView
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:text="@string/earth_date"
                     android:textColor="@android:color/black"
                     android:textSize="18sp"/>
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/tv_earth_date"
-                    android:layout_width="wrap_content"
-                    android:textSize="18sp"
+                    android:layout_width="match_parent"
+                    android:textSize="16sp"
                     android:layout_height="wrap_content"
                     android:text="@{vm.showImageDetails.earth_date}"
                     tools:text="10-10-2010" />

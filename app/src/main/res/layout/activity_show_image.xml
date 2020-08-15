@@ -9,7 +9,7 @@
 
         <variable
             name="vm"
-            type="com.example.marsroverimages.ui.show_image.ShowImageViewModel" />
+            type="com.example.marsroverphotos.ui.show_image.ShowImageViewModel" />
 
     </data>
 
@@ -46,12 +46,14 @@
                     android:id="@+id/chip_date"
                     style="@style/Widget.MaterialComponents.Chip.Entry"
                     android:layout_width="wrap_content"
+                    android:clickable="false"
                     android:layout_height="wrap_content"
                     android:text="@{vm.selectedDateText}"
                     android:visibility="@{vm.selectedDateText.isEmpty() ? View.GONE : View.VISIBLE}" />
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/chip_camera_name"
+                    android:clickable="false"
                     style="@style/Widget.MaterialComponents.Chip.Entry"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
