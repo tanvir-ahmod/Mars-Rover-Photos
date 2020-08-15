@@ -72,12 +72,14 @@ class ShowImageViewModel @ViewModelInject constructor(private val roverRepositor
                 showLoader.value = false
                 if (result is Result.Success) {
                     _fetchImages.value = result.data.photos
+                    noImageFound.set(false)
                     if (result.data.photos.isEmpty())
                         noImageFound.set(true)
                 } else if (result is Result.Error) {
                     noImageFound.set(true)
                     showErrorMessage.value = result.exception.message.toString()
                 }
+
             }
         }
     }
