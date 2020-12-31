@@ -5,9 +5,12 @@
 Flutter version of this project can be found in the following link:
 https://github.com/tanvir-ahmod/mars_rover_image_flutter
 
+## Demo
+<img src="https://github.com/tanvir-ahmod/MarsRoverPhotos/blob/master/screenshots/demo.gif" height="400" width="200">
+
 ## Screenshots
 
-<img src="https://github.com/tanvir-ahmod/MarsRoverPhotos/blob/master/screenshots/demo.gif" height="400" width="200"><img src="https://github.com/tanvir-ahmod/MarsRoverPhotos/blob/master/screenshots/Screenshot_2020-08-15-12-52-41-145_com.example.marsroverPhotos.jpg" height="400" width="200"><img src="https://github.com/tanvir-ahmod/MarsRoverPhotos/blob/master/screenshots/Screenshot_2020-08-15-12-52-48-539_com.example.marsroverPhotos.jpg" height="400" width="200"><img src="https://github.com/tanvir-ahmod/MarsRoverPhotos/blob/master/screenshots/Screenshot_2020-08-15-12-52-52-669_com.example.marsroverPhotos.jpg" height="400" width="200">
+<img src="https://github.com/tanvir-ahmod/MarsRoverPhotos/blob/master/screenshots/Screenshot_2020-08-15-12-52-41-145_com.example.marsroverPhotos.jpg" height="400" width="200"><img src="https://github.com/tanvir-ahmod/MarsRoverPhotos/blob/master/screenshots/Screenshot_2020-08-15-12-52-48-539_com.example.marsroverPhotos.jpg" height="400" width="200"><img src="https://github.com/tanvir-ahmod/MarsRoverPhotos/blob/master/screenshots/Screenshot_2020-08-15-12-52-52-669_com.example.marsroverPhotos.jpg" height="400" width="200">
 <img src="https://github.com/tanvir-ahmod/MarsRoverPhotos/blob/master/screenshots/Screenshot_2020-08-15-12-52-56-246_com.example.marsroverPhotos.jpg" height="400" width="200"><img src="https://github.com/tanvir-ahmod/MarsRoverPhotos/blob/master/screenshots/Screenshot_2020-08-15-12-53-02-279_com.example.marsroverPhotos.jpg" height="400" width="200"><img src="https://github.com/tanvir-ahmod/MarsRoverPhotos/blob/master/screenshots/Screenshot_2020-08-15-12-53-06-383_com.example.marsroverPhotos.jpg" height="400" width="200"><img src="https://github.com/tanvir-ahmod/MarsRoverPhotos/blob/master/screenshots/Screenshot_2020-08-15-12-53-11-694_com.example.marsroverPhotos.jpg" height="400" width="200">
 <img src="https://github.com/tanvir-ahmod/MarsRoverPhotos/blob/master/screenshots/Screenshot_2020-08-15-12-53-21-616_com.example.marsroverPhotos.jpg" height="400" width="200">
 
