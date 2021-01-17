@@ -90,7 +90,7 @@ class ShowImageViewModel @ViewModelInject constructor(private val roverRepositor
         selectDate.set(Calendar.DAY_OF_MONTH, date)
 
         queryModel.earthDate = "$year-${month + 1}-$date" // month is 0 based index
-        selectedDateText.set("$year-$month-$date")
+        selectedDateText.set("$year-${month + 1}-$date")
         queryModel.sol = null
         _showDatePicker.value = false
         getImages()
