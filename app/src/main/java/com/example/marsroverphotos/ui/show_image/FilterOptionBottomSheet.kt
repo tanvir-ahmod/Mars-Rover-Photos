@@ -28,7 +28,7 @@ import androidx.compose.ui.unit.sp
 import androidx.fragment.app.activityViewModels
 import com.example.marsroverphotos.R
 import com.example.marsroverphotos.models.Camera
-import com.example.marsroverphotos.utills.LazyGridFor
+import com.example.marsroverphotos.utills.components.LazyGridFor
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import java.util.*
 
