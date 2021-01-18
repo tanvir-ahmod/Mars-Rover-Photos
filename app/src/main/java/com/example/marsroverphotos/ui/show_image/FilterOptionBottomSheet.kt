@@ -66,7 +66,7 @@ class FilterOptionBottomSheet : BottomSheetDialogFragment() {
                 fontSize = 18.sp,
             )
             Text(
-                sharedViewModel.selectedDateText.get().toString(),
+                sharedViewModel.selectedDateText.value,
                 modifier = Modifier.weight(2F),
                 fontSize = 18.sp,
             )
@@ -93,7 +93,7 @@ class FilterOptionBottomSheet : BottomSheetDialogFragment() {
                 fontSize = 18.sp,
             )
             Text(
-                sharedViewModel.selectedCameraName.get().toString(),
+                sharedViewModel.selectedCameraName.value,
                 modifier = Modifier.fillMaxWidth().weight(2F),
                 fontSize = 18.sp,
             )
