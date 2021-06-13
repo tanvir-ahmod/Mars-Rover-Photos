@@ -17,6 +17,10 @@ https://github.com/tanvir-ahmod/mars_rover_image_flutter
 
 ## Getting Started
 
+```
+Works on Android Studio Arctic Fox | 2020.3.1 Canary 2
+```
+
 To get started at first clone the project.
 
 ```

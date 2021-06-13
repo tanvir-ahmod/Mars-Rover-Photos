@@ -4,37 +4,109 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.*
+import androidx.compose.material.FloatingActionButton
+import androidx.compose.material.Icon
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.asImageBitmap
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.ComposeView
+import androidx.compose.ui.res.vectorResource
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.activityViewModels
 import com.example.marsroverphotos.R
-import com.example.marsroverphotos.databinding.DialogImageDetailsBinding
+import com.example.marsroverphotos.models.RoverPhoto
+import com.example.marsroverphotos.utills.loadPicture
 
 
 class ImageDetailsDialog : DialogFragment() {
 
     private val sharedViewModel: ShowImageViewModel by activityViewModels()
-    private lateinit var viewDataBinding: DialogImageDetailsBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        viewDataBinding = DialogImageDetailsBinding.inflate(inflater, container, false).apply {
-            vm = sharedViewModel
+    ): View {
+        return ComposeView(requireContext()).apply {
+            setContent {
+                MaterialTheme {
+                    ShowDetails()
+                }
+            }
         }
-        return viewDataBinding.root
+    }
+
+    @Composable
+    private fun ShowDetails() {
+        val name: RoverPhoto? by sharedViewModel.showImageDetails.observeAsState()
+        name?.let { roverPhoto ->
+            Box {
+                Column(modifier = Modifier.padding(16.dp)) {
+                    val image =
+                        loadPicture(url = roverPhoto.img_src).value
+                    image?.let { img ->
+                        Image(
+                            bitmap = img.asImageBitmap(),
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .preferredHeight(350.dp),
+                            contentScale = ContentScale.Crop,
+                        )
+                        Row(modifier = Modifier.padding(top = 8.dp)) {
+                            Text(
+                                "Camera", modifier = Modifier.weight(1F),
+                                fontSize = 18.sp,
+                            )
+                            Text(
+                                roverPhoto.camera.full_name,
+                                modifier = Modifier.weight(2F),
+                                fontSize = 16.sp,
+                                color = Color.Gray
+                            )
+                        }
+                        Row(modifier = Modifier.padding(top = 8.dp)) {
+                            Text(
+                                "Earth Date", modifier = Modifier.weight(1F),
+                                fontSize = 18.sp,
+                            )
+                            Text(
+                                roverPhoto.earth_date,
+                                modifier = Modifier.weight(2F),
+                                fontSize = 16.sp,
+                                color = Color.Gray
+                            )
+                        }
+                    }
+                }
+                FloatingActionButton(
+                    backgroundColor = Color.Red,
+                    modifier = Modifier.padding(8.dp).align(Alignment.TopEnd).preferredWidth(25.dp)
+                        .preferredHeight(25.dp),
+                    onClick = {
+                        dismiss()
+                    }) {
+                    Icon(
+                        imageVector = vectorResource(R.drawable.ic_close),
+                        tint = Color.White
+                    )
+                }
+            }
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewDataBinding.btnClose.setOnClickListener {
-            dismiss()
-        }
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
         dialog?.window?.setLayout(
             ViewGroup.LayoutParams.MATCH_PARENT,
             ViewGroup.LayoutParams.WRAP_CONTENT

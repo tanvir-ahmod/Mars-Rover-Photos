@@ -1,5 +1,6 @@
 package com.example.marsroverphotos.ui.show_image
 
+import androidx.compose.runtime.mutableStateOf
 import androidx.databinding.ObservableField
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
@@ -22,29 +23,29 @@ class ShowImageViewModel @ViewModelInject constructor(private val roverRepositor
 
     private val selectDate = Calendar.getInstance()
     private var queryModel = QueryModel()
-    var selectedCameraName = ObservableField<String>("")
-    var selectedDateText = ObservableField<String>("")
-    val noImageFound = ObservableField<Boolean>(false)
+    var selectedCameraName = mutableStateOf("")
+    var selectedDateText = mutableStateOf("")
+    val noImageFound = ObservableField(false)
 
     private val _fetchImages = MutableLiveData<List<RoverPhoto>>()
     val images: LiveData<List<RoverPhoto>> = _fetchImages
 
-    private val _showImageDetailsDialog = MutableLiveData<Boolean>(false)
+    private val _showImageDetailsDialog = MutableLiveData(false)
     val showImageDetailsDialog: LiveData<Boolean> = _showImageDetailsDialog
 
     private val _showImageDetails = MutableLiveData<RoverPhoto>()
     val showImageDetails: LiveData<RoverPhoto> = _showImageDetails
 
-    private val _showAvailableCameras = MutableLiveData<Boolean>(false)
-    val changeBottomSheetCloseButton :  LiveData<Boolean> = _showAvailableCameras
+    private val _showAvailableCameras = MutableLiveData(false)
+    val changeBottomSheetCloseButton: LiveData<Boolean> = _showAvailableCameras
     val availableCameras: LiveData<List<Camera>> = _showAvailableCameras.switchMap { isShow ->
         if (isShow)
             fetchAvailableCameras()
         else
-            MutableLiveData<List<Camera>>(listOf())
+            MutableLiveData(listOf())
     }
 
-    private val _showDatePicker = MutableLiveData<Boolean>(false)
+    private val _showDatePicker = MutableLiveData(false)
     val showDatePicker: LiveData<Calendar> = _showDatePicker.switchMap { isShow ->
         val datePicker = MutableLiveData<Calendar>(null)
         if (isShow)
@@ -90,7 +91,7 @@ class ShowImageViewModel @ViewModelInject constructor(private val roverRepositor
         selectDate.set(Calendar.DAY_OF_MONTH, date)
 
         queryModel.earthDate = "$year-${month + 1}-$date" // month is 0 based index
-        selectedDateText.set("$year-${month + 1}-$date")
+        selectedDateText.value = "$year-${month + 1}-$date"
         queryModel.sol = null
         _showDatePicker.value = false
         getImages()
@@ -98,7 +99,7 @@ class ShowImageViewModel @ViewModelInject constructor(private val roverRepositor
 
     fun changeCamera(camera: String) {
         queryModel.camera = camera
-        selectedCameraName.set(camera)
+        selectedCameraName.value = camera
         getImages()
         changeAvailableCameraShowStatus()
     }
@@ -134,7 +135,7 @@ class ShowImageViewModel @ViewModelInject constructor(private val roverRepositor
         queryModel.earthDate = null
         if (queryModel.camera == null)
             queryModel.sol = "1000"
-        selectedDateText.set("")
+        selectedDateText.value = ""
         getImages()
     }
 
@@ -142,7 +143,7 @@ class ShowImageViewModel @ViewModelInject constructor(private val roverRepositor
         queryModel.camera = null
         if (queryModel.earthDate == null)
             queryModel.sol = "1000"
-        selectedCameraName.set("")
+        selectedCameraName.value = ""
         getImages()
     }
 }

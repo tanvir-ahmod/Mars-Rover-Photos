@@ -39,26 +39,21 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:clickable="false"
-                    android:text="@string/no_filter"
-                    android:visibility="@{vm.selectedDateText.isEmpty() &amp;&amp;  vm.selectedCameraName.isEmpty() ? View.VISIBLE : View.GONE}" />
+                    android:text="@string/no_filter" />
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/chip_date"
                     style="@style/Widget.MaterialComponents.Chip.Entry"
                     android:layout_width="wrap_content"
                     android:clickable="false"
-                    android:layout_height="wrap_content"
-                    android:text="@{vm.selectedDateText}"
-                    android:visibility="@{vm.selectedDateText.isEmpty() ? View.GONE : View.VISIBLE}" />
+                    android:layout_height="wrap_content" />
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/chip_camera_name"
                     android:clickable="false"
                     style="@style/Widget.MaterialComponents.Chip.Entry"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@{vm.selectedCameraName}"
-                    android:visibility="@{vm.selectedCameraName.isEmpty() ? View.GONE : View.VISIBLE}" />
+                    android:layout_height="wrap_content" />
             </com.google.android.material.chip.ChipGroup>
 
         </androidx.appcompat.widget.Toolbar>
