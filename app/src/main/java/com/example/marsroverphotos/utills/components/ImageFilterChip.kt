@@ -3,7 +3,7 @@ package com.example.marsroverphotos.utills.components
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.preferredSize
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Icon
@@ -39,10 +39,11 @@ fun ImageFilterChip(text: String, hasAction: Boolean = false, onClick: () -> Uni
                     shape = CircleShape,
                     modifier = Modifier.padding(start = 8.dp)
                 ) {
-                    IconButton(modifier = Modifier.then(Modifier.preferredSize(16.dp)),
+                    IconButton(modifier = Modifier.then(Modifier.size(16.dp)),
                         onClick = { onClick() }) {
                         Icon(
                             imageVector = Icons.Filled.Close,
+                            contentDescription = null,
                             tint = Color.White
                         )
                     }

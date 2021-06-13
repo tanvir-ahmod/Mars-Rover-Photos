@@ -2,6 +2,7 @@ package com.example.marsroverphotos.ui.show_image
 
 import android.os.Bundle
 import android.util.Log
+import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
@@ -16,9 +17,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.setContent
 import androidx.compose.ui.res.colorResource
-import androidx.compose.ui.res.vectorResource
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.example.marsroverphotos.R
 import com.example.marsroverphotos.base.ui.BaseActivity
@@ -29,9 +29,12 @@ import com.example.marsroverphotos.ui.rover_selection.RoverSelectionActivity
 import com.example.marsroverphotos.utills.components.ImageFilterChip
 import com.example.marsroverphotos.utills.components.LazyGridFor
 import com.example.marsroverphotos.utills.loadPicture
+import com.google.accompanist.pager.ExperimentalPagerApi
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
+@ExperimentalPagerApi
+@ExperimentalMaterialApi
 class ShowImageActivity : BaseActivity<ShowImageViewModel, ActivityShowImageBinding>() {
 
     override val mViewModel: ShowImageViewModel by viewModels()
@@ -65,6 +68,7 @@ class ShowImageActivity : BaseActivity<ShowImageViewModel, ActivityShowImageBind
                         onClick = { onBackPressed() }) {
                         Icon(
                             imageVector = Icons.Filled.ArrowBack,
+                            contentDescription = null,
                         )
                     }
 
@@ -95,7 +99,8 @@ class ShowImageActivity : BaseActivity<ShowImageViewModel, ActivityShowImageBind
                     modifier = Modifier.align(Alignment.CenterEnd),
                     onClick = { showBottomSheet() }) {
                     Icon(
-                        imageVector = vectorResource(id = R.drawable.ic_filter),
+                        painter = painterResource(R.drawable.ic_filter),
+                        contentDescription = null
                     )
                 }
             }
@@ -112,20 +117,19 @@ class ShowImageActivity : BaseActivity<ShowImageViewModel, ActivityShowImageBind
                     Card(
                         elevation = 4.dp,
                         shape = MaterialTheme.shapes.medium,
-                        modifier = Modifier.padding(8.dp)
-                            .clickable(onClick = {
-                                showImageDetails(roverPhoto)
-                                Log.d("click", "ok")
-                            })
+                        modifier = Modifier
+                            .padding(8.dp),
+                        onClick = { showImageDetails(roverPhoto) }
                     ) {
                         val image =
                             loadPicture(url = roverPhoto.img_src).value
                         image?.let { img ->
                             Image(
                                 bitmap = img.asImageBitmap(),
+                                contentDescription = null,
                                 alignment = Alignment.Center,
                                 modifier = Modifier
-                                    .preferredHeight(250.dp)
+                                    .height(250.dp)
                                     .fillMaxWidth(),
                                 contentScale = ContentScale.Crop,
                             )
@@ -136,7 +140,9 @@ class ShowImageActivity : BaseActivity<ShowImageViewModel, ActivityShowImageBind
             } else {
                 Surface(
                     color = colorResource(id = R.color.grey),
-                    modifier = Modifier.fillMaxWidth().fillMaxHeight()
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .fillMaxHeight()
                 ) {
                     Row(
                         horizontalArrangement = Arrangement.Center,

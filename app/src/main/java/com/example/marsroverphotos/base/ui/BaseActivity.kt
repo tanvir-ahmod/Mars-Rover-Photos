@@ -43,11 +43,5 @@ abstract class BaseActivity<VM : BaseViewModel, VB : ViewBinding> : AppCompatAct
         })
     }
 
-    fun showSnackBar(message: String) {
-        runOnUiThread {
-
-        }
-    }
-
     abstract fun getViewBinding(): VB
 }

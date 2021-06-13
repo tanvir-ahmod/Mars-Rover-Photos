@@ -2,6 +2,7 @@ package com.example.marsroverphotos.ui.rover_selection
 
 import android.content.Intent
 import android.os.Bundle
+import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -19,11 +20,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.AmbientAnimationClock
-import androidx.compose.ui.platform.setContent
 import androidx.compose.ui.res.colorResource
-import androidx.compose.ui.res.imageResource
-import androidx.compose.ui.res.vectorResource
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -34,11 +32,14 @@ import com.example.marsroverphotos.models.QueryModel
 import com.example.marsroverphotos.models.Rover
 import com.example.marsroverphotos.ui.show_image.ShowImageActivity
 import com.example.marsroverphotos.utills.Constants
-import com.example.marsroverphotos.utills.components.Pager
-import com.example.marsroverphotos.utills.components.PagerState
+import com.google.accompanist.pager.ExperimentalPagerApi
+import com.google.accompanist.pager.HorizontalPager
+import com.google.accompanist.pager.PagerState
+import com.google.accompanist.pager.rememberPagerState
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
+@ExperimentalPagerApi
 class RoverSelectionActivity :
     BaseActivity<RoverSelectionViewModel, ActivityRoverSelectionBinding>() {
 
@@ -46,7 +47,9 @@ class RoverSelectionActivity :
         const val QUERY_MODEL = "queryModel"
     }
 
+
     private lateinit var pagerState: PagerState
+
     override val mViewModel: RoverSelectionViewModel by viewModels()
 
     override fun getViewBinding(): ActivityRoverSelectionBinding =
@@ -56,33 +59,39 @@ class RoverSelectionActivity :
         super.onCreate(savedInstanceState)
 
         setContent {
-            val clock = AmbientAnimationClock.current
-            pagerState = remember(clock) { PagerState(clock) }
-
             val gotoNextActivity: QueryModel? by mViewModel.gotoNextActivity.observeAsState()
             gotoNextActivity?.let {
                 goToNextActivity(it)
             }
-            Box(Modifier.fillMaxSize().padding(8.dp)) {
+            Box(
+                Modifier
+                    .fillMaxSize()
+                    .padding(8.dp)
+            ) {
                 Column {
                     Text(
                         text = getString(R.string.select_a_rover),
                         fontSize = 24.sp,
                         textAlign = TextAlign.Center,
-                        modifier = Modifier.fillMaxWidth().padding(24.dp)
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(24.dp)
                     )
                     ShowRovers()
                 }
 
                 FloatingActionButton(
                     backgroundColor = colorResource(id = R.color.colorAccent),
-                    modifier = Modifier.padding(8.dp).align(Alignment.BottomCenter),
+                    modifier = Modifier
+                        .padding(8.dp)
+                        .align(Alignment.BottomCenter),
                     onClick = {
                         mViewModel.setSelectedRover(pagerState.currentPage)
                         mViewModel.goToNextActivity()
                     }) {
                     Icon(
-                        imageVector = vectorResource(R.drawable.ic_check),
+                        painter = painterResource(R.drawable.ic_check),
+                        contentDescription = null,
                         tint = Color.White
                     )
                 }
@@ -91,33 +100,13 @@ class RoverSelectionActivity :
     }
 
     @Composable
-    private fun ShowIndicator(count: Int, selected: Int) {
-        Row(
-            modifier = Modifier.fillMaxWidth().wrapContentSize(Alignment.Center),
-        ) {
-            for (i in 0..count) {
-                var color = colorResource(id = R.color.grey)
-                if (i == selected) {
-                    color = colorResource(id = R.color.colorAccent)
-                }
-                Spacer(modifier = Modifier.width(3.dp))
-                Box(
-                    modifier = Modifier.preferredSize(8.dp).clip(CircleShape)
-                        .background(color).padding(8.dp)
-                )
-                Spacer(modifier = Modifier.width(3.dp))
-            }
-        }
-    }
-
-    @Composable
     private fun ShowRovers() {
         val rovers: List<Rover>? by mViewModel.rovers.observeAsState()
         rovers?.let {
-            pagerState.maxPage = (it.size - 1).coerceAtLeast(0)
+            pagerState = rememberPagerState(pageCount = it.size)
             Column {
-                ShowIndicator(pagerState.maxPage, pagerState.currentPage)
-                Pager(state = pagerState) {
+                ShowIndicator(it.size - 1, pagerState.currentPage)
+                HorizontalPager(state = pagerState) { page ->
                     val rover = it[page]
                     RoverBody(rover = rover)
                 }
@@ -126,14 +115,40 @@ class RoverSelectionActivity :
     }
 
     @Composable
+    private fun ShowIndicator(count: Int, selected: Int) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .wrapContentSize(Alignment.Center),
+        ) {
+            for (i in 0..count) {
+                var color = colorResource(id = R.color.grey)
+                if (i == selected) {
+                    color = colorResource(id = R.color.colorAccent)
+                }
+                Spacer(modifier = Modifier.width(3.dp))
+                Box(
+                    modifier = Modifier
+                        .size(8.dp)
+                        .clip(CircleShape)
+                        .background(color)
+                        .padding(8.dp)
+                )
+                Spacer(modifier = Modifier.width(3.dp))
+            }
+        }
+    }
+
+    @Composable
     private fun RoverBody(rover: Rover) {
         Column(modifier = Modifier.padding(16.dp)) {
             Image(
-                bitmap = imageResource(id = rover.image),
+                painter = painterResource(rover.image),
+                contentDescription = null,
                 alignment = Alignment.Center,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .preferredHeight(250.dp),
+                    .height(250.dp),
                 contentScale = ContentScale.Fit,
             )
             Spacer(Modifier.height(16.dp))

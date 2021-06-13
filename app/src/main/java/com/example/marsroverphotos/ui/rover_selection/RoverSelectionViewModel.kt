@@ -1,6 +1,5 @@
 package com.example.marsroverphotos.ui.rover_selection
 
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.switchMap
@@ -10,9 +9,12 @@ import com.example.marsroverphotos.data.Result
 import com.example.marsroverphotos.data.source.RoverRepository
 import com.example.marsroverphotos.models.QueryModel
 import com.example.marsroverphotos.models.Rover
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class RoverSelectionViewModel @ViewModelInject constructor(private val roverRepository: RoverRepository) :
+@HiltViewModel
+class RoverSelectionViewModel @Inject constructor(private val roverRepository: RoverRepository) :
     BaseViewModel() {
 
     private lateinit var selectedRover: Rover

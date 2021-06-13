@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
@@ -21,7 +20,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.res.colorResource
-import androidx.compose.ui.res.imageResource
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -32,6 +31,7 @@ import com.example.marsroverphotos.utills.components.LazyGridFor
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import java.util.*
 
+@ExperimentalMaterialApi
 class FilterOptionBottomSheet : BottomSheetDialogFragment() {
     private val sharedViewModel: ShowImageViewModel by activityViewModels()
 
@@ -75,10 +75,11 @@ class FilterOptionBottomSheet : BottomSheetDialogFragment() {
             showDatePicker?.let {
                 showDatePicker(it)
             }
-            IconButton(modifier = Modifier.then(Modifier.preferredSize(24.dp)).weight(1F),
+            IconButton(modifier = Modifier.then(Modifier.size(24.dp)).weight(1F),
                 onClick = { sharedViewModel.showDatePicker() }) {
                 Icon(
                     imageVector = Icons.Filled.DateRange,
+                    contentDescription = null,
                     tint = colorResource(id = R.color.colorAccent)
                 )
             }
@@ -131,19 +132,18 @@ class FilterOptionBottomSheet : BottomSheetDialogFragment() {
                 Card(
                     elevation = 4.dp,
                     shape = MaterialTheme.shapes.medium,
-                    modifier = Modifier.padding(8.dp)
-                        .clickable(onClick = {
-                            selectCamera(item.name)
-                        })
+                    modifier = Modifier.padding(8.dp),
+                    onClick = {selectCamera(item.name)}
 
                 ) {
                     Column(modifier = Modifier.padding(8.dp)) {
                         Image(
-                            bitmap = imageResource(id = item.image),
+                            painter = painterResource(item.image),
                             alignment = Alignment.Center,
+                            contentDescription = null,
                             modifier = Modifier
-                                .preferredWidth(100.dp)
-                                .preferredHeight(100.dp),
+                                .height(100.dp)
+                                .width(100.dp),
                             contentScale = ContentScale.Crop,
                         )
                         Text(

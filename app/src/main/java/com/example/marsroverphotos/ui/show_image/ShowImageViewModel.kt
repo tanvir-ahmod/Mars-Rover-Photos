@@ -2,7 +2,6 @@ package com.example.marsroverphotos.ui.show_image
 
 import androidx.compose.runtime.mutableStateOf
 import androidx.databinding.ObservableField
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.switchMap
@@ -14,11 +13,14 @@ import com.example.marsroverphotos.models.Camera
 import com.example.marsroverphotos.models.QueryModel
 import com.example.marsroverphotos.models.RoverPhoto
 import com.example.marsroverphotos.utills.Constants
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import java.util.*
+import javax.inject.Inject
 
-class ShowImageViewModel @ViewModelInject constructor(private val roverRepository: RoverRepository) :
+@HiltViewModel
+class ShowImageViewModel @Inject constructor(private val roverRepository: RoverRepository) :
     BaseViewModel() {
 
     private val selectDate = Calendar.getInstance()

@@ -19,6 +19,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.ComposeView
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -58,9 +59,10 @@ class ImageDetailsDialog : DialogFragment() {
                     image?.let { img ->
                         Image(
                             bitmap = img.asImageBitmap(),
+                            contentDescription = null,
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .preferredHeight(350.dp),
+                                .height(350.dp),
                             contentScale = ContentScale.Crop,
                         )
                         Row(modifier = Modifier.padding(top = 8.dp)) {
@@ -91,13 +93,14 @@ class ImageDetailsDialog : DialogFragment() {
                 }
                 FloatingActionButton(
                     backgroundColor = Color.Red,
-                    modifier = Modifier.padding(8.dp).align(Alignment.TopEnd).preferredWidth(25.dp)
-                        .preferredHeight(25.dp),
+                    modifier = Modifier.padding(8.dp).align(Alignment.TopEnd).width(25.dp)
+                        .height(25.dp),
                     onClick = {
                         dismiss()
                     }) {
                     Icon(
-                        imageVector = vectorResource(R.drawable.ic_close),
+                        painter = painterResource(R.drawable.ic_close),
+                        contentDescription = null,
                         tint = Color.White
                     )
                 }
